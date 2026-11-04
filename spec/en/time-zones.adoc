@@ -1,0 +1,56 @@
+= Time zones
+include::_fpsot-terms.adoc[]
+
+A time zone is a region that shares the same clock rules, including any change for daylight saving time.
+These rules use the time zone database that the {abbr-iana-first} publishes.
+
+== Time zone names
+
+[[DAT-030]]
+*DAT-030.* A time zone MUST be a name from the {abbr-iana} database, such as `America/Toronto`, never an offset or abbreviation.
+An offset such as `-05:00` changes when the clocks change, so it cannot place a future time.
+Abbreviations are ambiguous. `CST` names zones in North America, in China and in Cuba.
+A name from the database carries the full history of the rules of its region.
+
+[[DAT-031]]
+*DAT-031.* A producer SHOULD write the canonical name of a zone, not a link name such as `America/Montreal`.
+The database keeps link names as aliases of canonical names.
+Data that uses one name for each zone is simpler to compare and to group.
+
+[[DAT-032]]
+*DAT-032.* A reader MUST accept every zone name of the database release it uses, link names included.
+Older data and other systems still write link names.
+
+== Database releases
+
+The database has several releases each year, named after the year and a letter, such as `2026f`.
+Each release follows the rule changes that governments announce.
+
+[[DAT-033]]
+*DAT-033.* A system MUST fix the release of the time zone database in its build, and record it.
+Two conversions of the same local time then give the same result.
+An auditor can also explain a past result from the recorded release.
+
+[[DAT-034]]
+*DAT-034.* A system SHOULD move to each new release of the database before the changes in it take effect.
+Governments sometimes change their rules only weeks ahead.
+A system on an old release would then show the wrong local time.
+
+== JSON form and LinkML type
+
+[cols="2,3,3",options="header"]
+|===
+|Type |JSON form |LinkML
+|Time zone |String, such as `"America/Toronto"` |Type `TimeZoneName`, based on `string`, with a pattern
+|===
+
+The pattern checks only the shape of a name.
+A system checks that the name exists in its release of the database.
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-04 |First version.
+|===

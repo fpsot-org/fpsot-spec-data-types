@@ -1,6 +1,6 @@
 publiccodeYmlVersion: "0.4"
-name: FPSOT specification template
-url: "https://github.com/fpsot-org/fpsot-spec-template"
+name: FPSOT data types specification
+url: "https://github.com/fpsot-org/fpsot-spec-data-types"
 platforms:
   - web
 categories:
@@ -9,22 +9,28 @@ developmentStatus: concept
 softwareType: "standalone/other"
 description:
   en:
-    shortDescription: Template for FPSOT specification repositories.
+    shortDescription: Data type rules for FPSOT systems.
     longDescription: >
-      Starting point for an FPSOT specification repository. It holds the
-      layout, the Community Specification License files, and the CI that
-      checks requirement IDs, links, languages and prose.
+      Rules for how FPSOT systems store and exchange text, dates, times,
+      durations, time zones, numbers, money, identifiers, booleans, code
+      values and coordinates, with one JSON form and one LinkML type each.
     features:
-      - Specification repository layout
+      - RFC 3339 dates and times in UTC
+      - Money as a decimal string with an ISO 4217 currency
+      - UUID version 7 identifiers
+      - Bilingual text keyed by language tag
   fr:
-    shortDescription: Gabarit des dépôts de spécification de FPSOT.
+    shortDescription: Règles sur les types de données des systèmes FPSOT.
     longDescription: >
-      Point de départ d'un dépôt de spécification de FPSOT. Il contient la
-      structure, les fichiers de la Community Specification License, et
-      l'intégration continue qui vérifie les identifiants, les liens, les
-      langues et la rédaction.
+      Règles sur la façon dont les systèmes FPSOT conservent et échangent
+      le texte, les dates, les heures, les durées, les fuseaux horaires, les
+      nombres, l’argent, les identifiants, les booléens, les valeurs de code
+      et les coordonnées, avec une forme JSON et un type LinkML pour chacun.
     features:
-      - Structure d'un dépôt de spécification
+      - Dates et heures du RFC 3339 en UTC
+      - Argent en chaîne décimale avec une monnaie ISO 4217
+      - Identifiants UUID de version 7
+      - Texte bilingue indexé par étiquette de langue
 legal:
   license: Community-Spec-1.0
 maintenance:

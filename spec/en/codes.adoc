@@ -1,0 +1,47 @@
+= Booleans and code values
+include::_fpsot-terms.adoc[]
+
+A boolean holds yes or no.
+A code value holds one value from a fixed list, such as the status of an application.
+
+[[DAT-070]]
+*DAT-070.* A boolean MUST be the {abbr-json-first} literal `true` or `false`, never a string or a number.
+Every {abbr-json} parser reads the literals the same way.
+Strings and numbers need a convention that each reader must know.
+
+[[DAT-071]]
+*DAT-071.* A field with more than two states, or that may gain a third, SHOULD be a code value.
+A status such as "approved" often grows a state such as "suspended".
+Two booleans for one state allow combinations that mean nothing.
+
+[[DAT-072]]
+*DAT-072.* A code value MUST be a {abbr-json} string in lower-case kebab-case, never a number.
+An example is `in-review`, the case that the {abbr-fpsot-first} naming specification sets for code values.
+A word is readable in logs and stays stable when the list grows or changes order.
+Codes that another body issues keep their own form, as the xref:identifiers.adoc[identifier rules] set.
+
+[[DAT-073]]
+*DAT-073.* An interface MUST show people the multilingual label of a code value, not the code value itself.
+The code is for machines, and it stays the same in every language.
+The {abbr-fpsot} naming specification sets the same rule for code lists.
+Here, the label is multilingual text, as the xref:text.adoc[text rules] set.
+
+== JSON form and LinkML type
+
+[cols="2,3,3",options="header"]
+|===
+|Type |JSON form |LinkML
+|Boolean |`true` or `false` |`boolean`
+|Code value |String, such as `"in-review"` |An enumeration whose permissible values are the code values, or type `CodeValue`
+|===
+
+A LinkML enumeration lists every permissible value, so a validator rejects any other value.
+The type `CodeValue` checks only the form, for lists that live outside the model.
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-04 |First version.
+|===

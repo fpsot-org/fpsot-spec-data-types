@@ -1,16 +1,95 @@
-= Guide
-:translation-status: pending
-:page-type: explanation
+= Modéliser un dossier avec les types de données de FPSOT
+:page-type: how-to
 include::_fpsot-terms.adoc[]
 
-Cette page explique la spécification aux personnes qui l’adoptent.
-Chaque page de guide a un seul type.
-C’est un tutoriel, un guide pratique, une référence ou une explication.
+Ce guide montre comment définir un dossier en LinkML avec les types de la spécification sur les types de données.
+L’exemple est un permis de construction.
+
+== Importer les types
+
+Copiez `model/data-types.yaml` à côté de votre schéma, ou désignez-le par son adresse publiée.
+Importez-le ensuite dans votre schéma :
+
+[source,yaml]
+----
+imports:
+  - linkml:types
+  - data-types
+----
+
+== Définir le dossier
+
+Donnez à chaque champ le type qui correspond à ce qu’il contient.
+
+[source,yaml]
+----
+classes:
+  BuildingPermit:
+    attributes:
+      id: {identifier: true, range: Uuid7}
+      title: {range: MultilingualText, inlined: true, required: true}
+      status: {range: PermitStatus, required: true}
+      issuedAt: {range: Instant}
+      validity: {range: DateInterval, inlined: true}
+      fee: {range: Money, inlined: true}
+      inspection: {range: ZonedLocalDateTime, inlined: true}
+      location: {range: Point, inlined: true}
+      cadastralNumber:
+        range: string
+        description: Lot number in the form that the land registry issues.
+enums:
+  PermitStatus:
+    permissible_values:
+      in-review: {}
+      approved: {}
+      suspended: {}
+----
+
+Le champ `id` est un nouvel identifiant, et il emploie donc `Uuid7`.
+Le numéro de lot vient d’un autre organisme.
+Il reste donc une simple chaîne, dans la forme de cet organisme.
+L’état a trois valeurs possibles : c’est donc une valeur de code, et non un booléen.
+
+== Vérifier un dossier
+
+Écrivez un dossier en {abbr-json-first} ou en YAML :
+
+[source,json]
+----
+{
+  "id": "019a4f3c-8b2e-7c41-9d3a-5f6e7a8b9c0d",
+  "title": {"en": "Building permit", "fr": "Permis de construction"},
+  "status": "in-review",
+  "issuedAt": "2026-11-04T15:30:00Z",
+  "validity": {"start": "2026-11-04", "end": "2027-11-04"},
+  "fee": {"amount": "250.00", "currency": "CAD"},
+  "inspection": {"localDateTime": "2027-03-14T09:00:00", "timeZone": "America/Toronto"},
+  "location": {"type": "Point", "coordinates": [-71.208, 46.814]}
+}
+----
+
+Validez-le ensuite :
+
+[source,shell]
+----
+linkml-validate -s permit.yaml -C BuildingPermit permit.json
+----
+
+Le validateur refuse un décalage dans `issuedAt`, un nombre dans `fee.amount`, un `id` en majuscules et un titre français manquant.
+Quand votre système reçoit d’ailleurs un `id` en majuscules, convertissez-le en minuscules avant de le valider.
+
+== Vérifier votre construction
+
+* Fixez dans votre construction la version de la base de données des fuseaux horaires, et consignez-la.
+* Calculez les montants avec un type décimal, jamais en virgule flottante binaire.
+* Convertissez le texte en forme de normalisation C avant de le conserver.
+
+Le modèle ne peut pas vérifier ces trois points : ajoutez-les à votre révision du code.
 
 == Historique du document
 
 [cols="1,1,4",options="header"]
 |===
 |Version |Date |Changement
-|0.1.0 |2026-11-03 |Première version.
+|0.1.0 |2026-11-04 |Première version.
 |===

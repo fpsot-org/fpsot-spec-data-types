@@ -1,0 +1,12 @@
+id: 019a4f3c-8b2e-7c41-9d3a-5f6e7a8b9c0d
+createdAt: "2026-11-04T15:30:00Z"
+birthDate: "1990-02-28"
+appointment: {localDateTime: "2027-03-14T09:00:00", timeZone: America/Toronto}
+openingTime: "08:30:00"
+processingTime: PT36H
+fee: {amount: "12.50", currency: CAD}
+name: {en: Building permit, fr: Permis de construction, es: Permiso de construcción}
+validity: {start: "2026-11-04", end: "2027-11-04"}
+status: in-review
+active: true
+location: {type: Point, coordinates: [-71.208, 46.814]}

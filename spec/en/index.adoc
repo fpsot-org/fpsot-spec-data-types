@@ -1,8 +1,37 @@
-= Specification title
+= FPSOT data types specification
 include::_fpsot-terms.adoc[]
 
-Replace this page with the normative text of the specification.
-Start with the scope, then the conformance classes, then the requirements.
+This specification sets how {abbr-fpsot-first} systems store and exchange common kinds of data.
+It covers text, dates, durations and time zones.
+It also covers numbers and money, identifiers, code values and coordinates.
+Each type has one {abbr-json-first} form and one LinkML type.
+Two systems that follow it can then read each other's data without a conversion table.
+
+The rules come in nine parts.
+
+* xref:text.adoc[Text] sets the character encoding and the form of multilingual text.
+* xref:dates.adoc[Dates and times] sets the form of instants, dates, local times and times of day.
+* xref:durations.adoc[Durations and intervals] sets the form of a length of time and of a span between two points.
+* xref:time-zones.adoc[Time zones] sets how to name a time zone and which database to use.
+* xref:numbers.adoc[Numbers] sets when to use a {abbr-json} number and when to use a decimal string.
+* xref:money.adoc[Money] sets the form of an amount and its currency, and how to round.
+* xref:identifiers.adoc[Identifiers] sets the form of new identifiers and how to keep identifiers from other bodies.
+* xref:codes.adoc[Booleans and code values] sets the form of yes-or-no values and of values from a fixed list.
+* xref:geography.adoc[Coordinates] sets the form of points and shapes on the Earth.
+
+== Related specifications
+
+This specification builds on two other {abbr-fpsot} specifications.
+The {abbr-fpsot} naming specification sets the case of field names and code values.
+The {abbr-fpsot} internationalization specification sets the language tags.
+It also sets how to display each type to people.
+This specification sets only the stored and exchanged form.
+
+== LinkML model
+
+The file `model/data-types.yaml` defines each type and class of this specification in LinkML.
+A model can import it and use its types as ranges.
+Each page gives the LinkML type of each form.
 
 == Conformance
 
@@ -11,24 +40,16 @@ ____
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 (RFC 2119, RFC 8174) when, and only when, they appear in all capitals, as shown here.
 ____
 
-The French version uses the keywords of requirement WRT-011 of the {abbr-fpsot-first} writing specification.
+The keywords follow requirement WRT-010 of the {abbr-fpsot} writing specification.
+The French version uses the French keywords of WRT-011.
 
-== Requirements
-
-Give each requirement an anchor line with its ID, directly above its paragraph.
-The anchor looks like `+[[XYZ-001]]+`.
-The example below shows the form. Replace it with the first requirement.
-
-[[TPL-001]]
-*TPL-001.* A normative statement MUST use one of the {abbr-bcp-first} 14 keywords in capitals.
-The keyword gives the rule its strength.
+A system conforms to this specification when the data it stores and exchanges meets every MUST rule.
+A data model conforms when every field it defines uses the form that this specification sets for its type.
 
 == Document history
-
-Add one row for each version that changes this page.
 
 [cols="1,1,4",options="header"]
 |===
 |Version |Date |Change
-|0.1.0 |2026-11-03 |First version.
+|0.1.0 |2026-11-04 |First version.
 |===

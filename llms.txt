@@ -1,0 +1,26 @@
+# FPSOT data types specification
+
+> How FPSOT systems store and exchange data: text, dates and times, durations, time zones, numbers, money, identifiers, booleans, code values and coordinates, each with one JSON form and one LinkML type.
+
+## Specification
+
+- [Overview](spec/en/index.adoc): scope, parts and conformance.
+- [Text](spec/en/text.adoc): DAT-001 to DAT-006.
+- [Dates and times](spec/en/dates.adoc): DAT-010 to DAT-016.
+- [Durations and intervals](spec/en/durations.adoc): DAT-020 to DAT-024.
+- [Time zones](spec/en/time-zones.adoc): DAT-030 to DAT-034.
+- [Numbers](spec/en/numbers.adoc): DAT-040 to DAT-043.
+- [Money](spec/en/money.adoc): DAT-050 to DAT-055.
+- [Identifiers](spec/en/identifiers.adoc): DAT-060 to DAT-067.
+- [Booleans and code values](spec/en/codes.adoc): DAT-070 to DAT-073.
+- [Coordinates](spec/en/geography.adoc): DAT-080 to DAT-082.
+
+## Model
+
+- [LinkML types](model/data-types.yaml)
+- [How-to guide](docs/modules/en/pages/index.adoc)
+
+## Optional
+
+- [Agent skill](skill/SKILL.md)
+- [Français](spec/fr/index.adoc)

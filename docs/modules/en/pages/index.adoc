@@ -1,15 +1,94 @@
-= Guide
-:page-type: explanation
+= Model a record with the FPSOT data types
+:page-type: how-to
 include::_fpsot-terms.adoc[]
 
-This page explains the specification for the people who adopt it.
-Each guide page has one type.
-It is a tutorial, a how-to guide, a reference or an explanation.
+This guide shows how to define a record in LinkML with the types of the data types specification.
+The example is a building permit.
+
+== Import the types
+
+Copy `model/data-types.yaml` next to your schema, or refer to it by its published address.
+Then import it in your schema:
+
+[source,yaml]
+----
+imports:
+  - linkml:types
+  - data-types
+----
+
+== Define the record
+
+Give each field the type that matches what it holds.
+
+[source,yaml]
+----
+classes:
+  BuildingPermit:
+    attributes:
+      id: {identifier: true, range: Uuid7}
+      title: {range: MultilingualText, inlined: true, required: true}
+      status: {range: PermitStatus, required: true}
+      issuedAt: {range: Instant}
+      validity: {range: DateInterval, inlined: true}
+      fee: {range: Money, inlined: true}
+      inspection: {range: ZonedLocalDateTime, inlined: true}
+      location: {range: Point, inlined: true}
+      cadastralNumber:
+        range: string
+        description: Lot number in the form that the land registry issues.
+enums:
+  PermitStatus:
+    permissible_values:
+      in-review: {}
+      approved: {}
+      suspended: {}
+----
+
+The `id` field is a new identifier, so it uses `Uuid7`.
+The lot number comes from another body, so it stays a plain string in the form of its issuer.
+The status has three states, so it is a code value and not a boolean.
+
+== Check a record
+
+Write a record in {abbr-json-first} or YAML:
+
+[source,json]
+----
+{
+  "id": "019a4f3c-8b2e-7c41-9d3a-5f6e7a8b9c0d",
+  "title": {"en": "Building permit", "fr": "Permis de construction"},
+  "status": "in-review",
+  "issuedAt": "2026-11-04T15:30:00Z",
+  "validity": {"start": "2026-11-04", "end": "2027-11-04"},
+  "fee": {"amount": "250.00", "currency": "CAD"},
+  "inspection": {"localDateTime": "2027-03-14T09:00:00", "timeZone": "America/Toronto"},
+  "location": {"type": "Point", "coordinates": [-71.208, 46.814]}
+}
+----
+
+Then validate it:
+
+[source,shell]
+----
+linkml-validate -s permit.yaml -C BuildingPermit permit.json
+----
+
+The validator rejects an offset in `issuedAt`, a number in `fee.amount`, an upper-case `id` and a missing French title.
+When your system receives an upper-case `id` from elsewhere, convert it to lower case before you validate it.
+
+== Check your build
+
+* Fix the release of the time zone database in your build, and record it.
+* Compute amounts with a decimal type, never with binary floating point.
+* Convert text to Normalization Form C before you store it.
+
+The model cannot check these three points, so add them to your code review.
 
 == Document history
 
 [cols="1,1,4",options="header"]
 |===
 |Version |Date |Change
-|0.1.0 |2026-11-03 |First version.
+|0.1.0 |2026-11-04 |First version.
 |===

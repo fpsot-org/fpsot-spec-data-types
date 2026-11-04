@@ -1,0 +1,70 @@
+= Text
+include::_fpsot-terms.adoc[]
+
+These rules cover the characters of every string, and text written in more than one language.
+
+== Encoding
+
+[[DAT-001]]
+*DAT-001.* Text MUST use the {abbr-utf-8-first} encoding, without a byte order mark.
+The {abbr-json-first} standard, link:https://www.rfc-editor.org/rfc/rfc8259[{abbr-rfc-first} 8259], already requires {abbr-utf-8} between systems.
+One encoding everywhere means that no reader has to guess.
+A byte order mark adds nothing in {abbr-utf-8} and breaks some parsers.
+
+[[DAT-002]]
+*DAT-002.* A system MUST convert text to Unicode Normalization Form C before it stores it.
+The same letter can have two encodings, such as "é" as one character or as "e" plus an accent.
+Without one stored form, two copies of the same text differ byte by byte.
+The forms come from link:https://www.unicode.org/reports/tr15/[Unicode Standard Annex #15].
+Form C is the compact form that most keyboards and systems already produce.
+The rule does not apply to signed content or to input of a hash, whose exact bytes matter.
+
+The {abbr-fpsot-first} internationalization specification covers how to compare and search text.
+
+[[DAT-003]]
+*DAT-003.* {abbr-json} data MUST meet the Internet {abbr-json} profile of link:https://www.rfc-editor.org/rfc/rfc7493[{abbr-rfc} 7493].
+Among other limits, it forbids two members with the same name in one object, and unpaired surrogates.
+Parsers handle those cases in different ways, so two systems could read the same data differently.
+
+== Multilingual text
+
+[[DAT-004]]
+*DAT-004.* Text in more than one language MUST be a {abbr-json} object, with one member per language.
+Each member name is a language tag, and each value is the text in that language.
+Language tags follow the {abbr-fpsot} internationalization specification.
+One object keeps all the languages of a value together, and any reader can pick its language.
+
+[source,json]
+----
+{"en": "Building permit", "fr": "Permis de construction"}
+----
+
+[[DAT-005]]
+*DAT-005.* Multilingual text that {abbr-fpsot} publishes MUST have both the `en` and the `fr` member.
+The foundation publishes everything in English and in French.
+A profile for a {term-jurisdiction} can require more languages.
+
+[[DAT-006]]
+*DAT-006.* A member of a multilingual text MUST NOT hold an empty string.
+A missing translation leaves its member out.
+An empty string looks like a translation, so a reader would show a blank instead of a fallback.
+
+== JSON form and LinkML type
+
+[cols="2,3,3",options="header"]
+|===
+|Type |JSON form |LinkML
+|Text |String in UTF-8, Normalization Form C |`string`
+|Multilingual text |Object keyed by language tag |Class `MultilingualText`, with the attributes `en` and `fr`
+|===
+
+The class requires `en` and `fr`, and its `extra_slots` setting accepts members for other languages.
+LinkML checks that each extra member holds a non-empty string, but it does not check the language tag.
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-04 |First version.
+|===

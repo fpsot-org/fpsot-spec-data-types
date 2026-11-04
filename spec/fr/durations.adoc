@@ -1,0 +1,71 @@
+= Durées et intervalles
+include::_fpsot-terms.adoc[]
+
+Une durée est une longueur de temps, par exemple 30 minutes.
+Un intervalle est la période entre deux points dans le temps, par exemple la validité d’un permis.
+
+== Durées
+
+[[DAT-020]]
+*DAT-020.* Un système qui écrit une durée DEVRAIT employer la forme stricte {abbr-iso-first} 8601 de l’annexe A du link:https://www.rfc-editor.org/rfc/rfc3339[{abbr-rfc-first} 3339].
+Par exemple : `PT30M` pour 30 minutes, et `P1Y2M` pour un an et deux mois.
+Les semaines s’écrivent seules, comme dans `P2W`, et aucune unité n’a de fraction décimale.
+Les unités vont de la plus grande à la plus petite, sans trou : un an et un jour s’écrit `P1Y0M1D`.
+La forme nomme chaque unité, et tous les lecteurs acceptent sa grammaire stricte.
+
+[[DAT-024]]
+*DAT-024.* Un lecteur DOIT accepter une durée dans toute forme {abbr-iso} 8601 qui n’a pas de fraction décimale.
+Cela comprend les formes où il manque des unités intermédiaires, comme `P1Y1D` et `PT1H1S`.
+Des bibliothèques courantes, comme `java.time` en Java, écrivent ces formes.
+Un lecteur qui n’accepte que la grammaire stricte rejetterait des données correctes.
+Cette règle ne vise pas les fractions, comme `PT0.5S`, que le {abbr-rfc} 3339 exclut.
+
+[[DAT-021]]
+*DAT-021.* Une durée qui mesure exactement un temps écoulé DEVRAIT employer seulement des heures, minutes et secondes, comme `PT36H`.
+Un jour dure 23 ou 25 heures quand on change l’heure, et les mois ont des longueurs différentes.
+La durée `P1D` veut donc dire « la même heure le lendemain », ce qui ne fait pas toujours 24 heures.
+Employez les jours, les mois et les années seulement pour un sens calendaire, comme un préavis en jours.
+
+[[DAT-022]]
+*DAT-022.* Une durée NE DEVRAIT PAS être un nombre nu.
+Un nombre nu cache son unité, et le lecteur doit alors la chercher.
+Quand un champ doit contenir un nombre d’unités de temps, son nom donne l’unité, comme `timeoutSeconds`.
+
+== Intervalles
+
+[[DAT-023]]
+*DAT-023.* Un intervalle DOIT être un objet {abbr-json-first} avec un membre `start` et un membre `end` du même type.
+La présente spécification fixe ces deux noms de membres, et tous les intervalles se lisent donc de la même façon.
+Le début fait partie de l’intervalle, mais pas la fin.
+Un intervalle sans fin laisse le membre `end` absent.
+Ces intervalles se suivent bout à bout sans trou ni chevauchement.
+Ils n’ont pas besoin d’une fin artificielle comme `23:59:59.999`.
+
+[source,json]
+----
+{"start": "2026-11-04", "end": "2027-11-04"}
+----
+
+Ce permis est valide du 4 novembre 2026 jusqu’à la fin du 3 novembre 2027.
+Une interface peut quand même montrer aux personnes le dernier jour de validité.
+
+== Forme JSON et type LinkML
+
+[cols="2,3,3",options="header"]
+|===
+|Type |Forme JSON |LinkML
+|Durée |Chaîne, comme `"PT30M"` |Type `Duration`, fondé sur `string`, avec un motif
+|Intervalle d’instants |Objet avec `start` et `end` |Classe `InstantInterval`
+|Intervalle de dates |Objet avec `start` et `end` |Classe `DateInterval`
+|===
+
+LinkML n’a pas de type de durée intégré, et le type `Duration` est donc une chaîne avec un motif.
+Le motif accepte toutes les formes que DAT-024 oblige un lecteur à accepter, et il rejette les fractions.
+
+== Historique du document
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Changement
+|0.1.0 |2026-11-04 |Première version.
+|===

@@ -1,0 +1,77 @@
+= Identifiers
+include::_fpsot-terms.adoc[]
+
+An identifier names one record, and keeps naming it for as long as the record exists.
+These rules cover identifiers that a system creates and identifiers that other bodies issue.
+
+== All identifiers
+
+[[DAT-060]]
+*DAT-060.* An identifier MUST be a {abbr-json-first} string, even when it holds only digits.
+Digits in a number lose their leading zeros, and long ones exceed the exact range of the xref:numbers.adoc[number rules].
+Nobody adds or compares identifiers as numbers, so a string fits their use.
+
+[[DAT-061]]
+*DAT-061.* A reader MUST treat an identifier as opaque, and draw no meaning from its content.
+That includes the creation time inside a version 7 {abbr-uuid-first}.
+The producer can then change how it makes identifiers without breaking any reader.
+
+[[DAT-062]]
+*DAT-062.* An identifier that a system creates MUST NOT contain information about a person, a place or a business.
+Examples are a name, a date of birth, a region, or a sequence number that reveals a count of records.
+Identifiers travel into logs, links and other systems that never see the record itself.
+Facts also change, but an identifier must not.
+
+== New identifiers
+
+[[DAT-063]]
+*DAT-063.* A system that creates a new identifier SHOULD use a version 7 {abbr-uuid}, as link:https://www.rfc-editor.org/rfc/rfc9562[{abbr-rfc-first} 9562] defines it.
+Any system can create one without asking a central service.
+Its first bits hold the creation time, so new values sort in order and keep database indexes compact.
+
+[[DAT-064]]
+*DAT-064.* A system MUST use a version 4 {abbr-uuid} instead, when the creation time of a record is itself sensitive.
+A version 7 {abbr-uuid} shows anyone the millisecond at which the system created the record.
+An example is a record of a report to a protection service.
+A version 4 {abbr-uuid} is random and reveals nothing.
+
+[[DAT-065]]
+*DAT-065.* A system MUST write a {abbr-uuid} in its canonical form, in lower case, such as `019a4f3c-8b2e-7c41-9d3a-5f6e7a8b9c0d`.
+The canonical form has 32 hexadecimal digits in groups of 8, 4, 4, 4 and 12, joined by hyphens.
+One form makes identifiers compare as plain text.
+
+[[DAT-067]]
+*DAT-067.* A reader SHOULD accept a {abbr-uuid} in upper case or mixed case, and convert it to lower case.
+Some systems send upper case, since {abbr-rfc} 9562 allows any case on input.
+After the conversion, the identifier compares as plain text, as DAT-065 intends.
+
+== Identifiers from other bodies
+
+[[DAT-066]]
+*DAT-066.* A system MUST keep an identifier from another body as a string, in the exact form of its issuer.
+Examples are a business number, a postal code, a country code or a currency code.
+The form keeps its case and its leading zeros, even when it differs from the {abbr-fpsot-first} code value rules.
+The schema of the field names the issuing scheme.
+A changed form no longer matches the records of the issuer.
+
+== JSON form and LinkML type
+
+[cols="2,3,3",options="header"]
+|===
+|Type |JSON form |LinkML
+|New identifier |String, such as `"019a4f3c-8b2e-7c41-9d3a-5f6e7a8b9c0d"` |Type `Uuid7`, based on `string`, with a pattern
+|Any {abbr-uuid} |Lower-case string |Type `Uuid`, based on `string`, with a pattern
+|Identifier from another body |String in the form of its issuer |`string`, with the pattern of the issuer when one exists
+|===
+
+A LinkML class marks its identifier slot with `identifier: true`, and gives it one of these types as its range.
+The `Uuid` and `Uuid7` patterns accept only lower case, since the model checks data as a system writes it.
+A reader converts other cases to lower case, as DAT-067 says, before it validates.
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-04 |First version.
+|===

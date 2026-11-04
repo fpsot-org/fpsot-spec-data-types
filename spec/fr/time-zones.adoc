@@ -1,0 +1,57 @@
+= Fuseaux horaires
+include::_fpsot-terms.adoc[]
+
+Un fuseau horaire est une région qui partage les mêmes règles d’horloge, y compris le passage à l’heure avancée.
+Ces règles emploient la base de données des fuseaux horaires que publie l’{abbr-iana-first}.
+
+== Noms de fuseaux horaires
+
+[[DAT-030]]
+*DAT-030.* Un fuseau horaire DOIT être un nom de la base de l’{abbr-iana}, jamais un décalage ni une abréviation.
+Par exemple : `America/Toronto`.
+Un décalage comme `-05:00` change quand on change l’heure, et il ne peut pas situer une heure future.
+Les abréviations sont ambiguës. `CST` désigne des fuseaux en Amérique du Nord, en Chine et à Cuba.
+Un nom de la base de données porte tout l’historique des règles de sa région.
+
+[[DAT-031]]
+*DAT-031.* Un producteur DEVRAIT écrire le nom canonique d’un fuseau, et non un nom de lien comme `America/Montreal`.
+La base de données garde les noms de liens comme alias des noms canoniques.
+Des données qui emploient un seul nom par fuseau sont plus simples à comparer et à regrouper.
+
+[[DAT-032]]
+*DAT-032.* Un lecteur DOIT accepter tous les noms de sa version de la base, y compris les noms de liens.
+Des données plus anciennes et d’autres systèmes écrivent encore des noms de liens.
+
+== Versions de la base de données
+
+La base de données paraît en plusieurs versions par année, nommées par l’année et une lettre, comme `2026f`.
+Chaque version suit les changements de règles qu’annoncent les gouvernements.
+
+[[DAT-033]]
+*DAT-033.* Un système DOIT fixer dans sa construction la version de la base des fuseaux horaires, et la consigner.
+Deux conversions de la même heure locale donnent alors le même résultat.
+Une personne qui vérifie peut aussi expliquer un résultat passé à partir de la version consignée.
+
+[[DAT-034]]
+*DAT-034.* Un système DEVRAIT passer à chaque nouvelle version de la base avant que ses changements entrent en vigueur.
+Les gouvernements changent parfois leurs règles quelques semaines seulement à l’avance.
+Un système resté sur une ancienne version afficherait alors la mauvaise heure locale.
+
+== Forme JSON et type LinkML
+
+[cols="2,3,3",options="header"]
+|===
+|Type |Forme JSON |LinkML
+|Fuseau horaire |Chaîne, comme `"America/Toronto"` |Type `TimeZoneName`, fondé sur `string`, avec un motif
+|===
+
+Le motif vérifie seulement la forme d’un nom.
+Le système vérifie que le nom existe dans sa version de la base de données.
+
+== Historique du document
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Changement
+|0.1.0 |2026-11-04 |Première version.
+|===

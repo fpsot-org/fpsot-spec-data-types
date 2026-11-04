@@ -1,0 +1,91 @@
+= Dates and times
+include::_fpsot-terms.adoc[]
+
+These rules use the date and time formats of link:https://www.rfc-editor.org/rfc/rfc3339[{abbr-rfc-first} 3339].
+That {abbr-rfc} is a profile of {abbr-iso-first} 8601-1:2019.
+It keeps one way to write each value, so programs can parse and sort the values as text.
+
+== Instants
+
+An instant is one moment on the global time line, such as the moment a record changed.
+
+[[DAT-010]]
+*DAT-010.* An instant MUST be an {abbr-rfc} 3339 date and time in {abbr-utc-first}, with a capital `T` and `Z`.
+An example is `2026-11-04T15:30:00Z`.
+One form makes instants from different systems compare and sort correctly as plain text.
+An offset such as `-05:00` adds nothing to a moment.
+It also hints at a time zone that it does not name.
+
+[[DAT-011]]
+*DAT-011.* A reader MUST accept instants with no fractional seconds and with one to nine digits of them.
+Systems keep time at different precisions, from whole seconds to nanoseconds.
+The schema of a field states the precision that its producer writes.
+
+[[DAT-012]]
+*DAT-012.* A reader MUST accept an instant with `60` seconds.
+The {abbr-rfc} 3339 format allows that value for a leap second.
+Most clocks spread a leap second over a longer period and never show `60`.
+A rare leap second must still not make a reader reject a record.
+
+In 2022, the General Conference on Weights and Measures adopted link:https://www.bipm.org/en/cgpm-2022/resolution-4[Resolution 4].
+It widens the allowed gap with the Earth's rotation by 2035, but it does not itself end leap seconds.
+Leap seconds are still expected to stop by 2035.
+
+[[DAT-013]]
+*DAT-013.* Exchanged data MUST NOT hold a date or an instant as a number, such as seconds since 1970.
+A reader cannot tell whether such a number counts seconds or milliseconds.
+People cannot read it either, so nobody can check it by eye.
+Seconds and milliseconds fit exactly in a {abbr-json-first} number.
+A count of nanoseconds, however, goes beyond 2^53^, and above that limit some parsers lose digits.
+
+== Dates
+
+[[DAT-014]]
+*DAT-014.* A date without a time MUST be a full date such as `2026-11-04`, never an instant at midnight.
+A date of birth or a due date names a calendar day, not a moment.
+Midnight in {abbr-utc} falls on the day before in Canada, so a converted instant would show the wrong day.
+
+== Local dates and times
+
+[[DAT-015]]
+*DAT-015.* When the local clock time matters, a system MUST store the local date and time and a time zone.
+Examples are a future appointment, or a deadline that a law sets in local time.
+Governments change the rules of their time zones, sometimes with little notice.
+An instant computed today would then point to the wrong hour on the local clock.
+The local date and time has no offset, since the time zone gives it.
+The time zone is a separate field, as the xref:time-zones.adoc[time zone rules] set.
+
+[source,json]
+----
+{"localDateTime": "2027-03-14T09:00:00", "timeZone": "America/Toronto"}
+----
+
+== Times of day
+
+[[DAT-016]]
+*DAT-016.* A time of day without a date MUST use the 24-hour form `HH:MM:SS` of {abbr-rfc} 3339, such as `08:30:00`.
+Fractional seconds can follow, as in instants.
+Opening hours and recurring schedules need a time of day that belongs to no single date.
+The 24-hour form has no "a.m." or "p.m." to translate or misread.
+
+== JSON form and LinkML type
+
+[cols="2,3,3",options="header"]
+|===
+|Type |JSON form |LinkML
+|Instant |String, such as `"2026-11-04T15:30:00Z"` |Type `Instant`, based on `datetime`, with a pattern for `Z`
+|Date |String, such as `"2026-11-04"` |Type `CalendarDate`, based on `date`
+|Local date and time |Object with `localDateTime` and `timeZone` |Class `ZonedLocalDateTime`, with the type `LocalDateTime`
+|Time of day |String, such as `"08:30:00"` |Type `TimeOfDay`, based on `string`
+|===
+
+LinkML's own `datetime` type accepts any offset, so the `Instant` type adds a pattern that requires `Z`.
+In a {abbr-json} Schema, LinkML's `time` type requires an offset, so `TimeOfDay` uses a string with a pattern.
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-04 |First version.
+|===
