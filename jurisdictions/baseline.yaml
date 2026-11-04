@@ -56,4 +56,4 @@ rows:
     requirement: {en: "Coordinates use WGS 84 with the longitude first.", fr: "Les coordonnées emploient le WGS 84, avec la longitude d’abord."}
     international: {en: "GeoJSON positions use WGS 84 decimal degrees, longitude then latitude. The crs member is gone.", fr: "Les positions GeoJSON emploient les degrés décimaux du WGS 84, la longitude puis la latitude. Le membre crs n’existe plus."}
     international_source: {title: "RFC 7946, The GeoJSON Format", version: "RFC 7946", date: "2016-08", url: "https://www.rfc-editor.org/rfc/rfc7946", archive: "https://web.archive.org/web/20260515125207/https://www.rfc-editor.org/rfc/rfc7946"}
-    fpsot: {en: "GeoJSON geometry in WGS 84, longitude first, at most six decimal places.", fr: "Géométrie GeoJSON en WGS 84, la longitude d’abord, au plus six décimales."}
+    fpsot: {en: "GeoJSON geometry in WGS 84, longitude first, preferably no more than six decimal places.", fr: "Géométrie GeoJSON en WGS 84, la longitude d’abord, de préférence pas plus de six décimales."}

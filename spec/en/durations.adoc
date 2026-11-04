@@ -7,11 +7,18 @@ An interval is the span between two points in time, such as the validity of a pe
 == Durations
 
 [[DAT-020]]
-*DAT-020.* A duration MUST use the {abbr-iso-first} 8601 form, within the grammar of link:https://www.rfc-editor.org/rfc/rfc3339[{abbr-rfc-first} 3339], appendix A.
+*DAT-020.* A system that writes a duration SHOULD use the strict {abbr-iso-first} 8601 form of link:https://www.rfc-editor.org/rfc/rfc3339[{abbr-rfc-first} 3339], appendix A.
 Examples are `PT30M` for 30 minutes and `P1Y2M` for one year and two months.
 Weeks stand alone, as in `P2W`, and no unit has a decimal fraction.
 The units run from the largest to the smallest with no gap, so one year and one day is `P1Y0M1D`.
-The form names each unit, so a reader never has to guess whether a number counts seconds or days.
+The form names each unit, and every reader accepts its strict grammar.
+
+[[DAT-024]]
+*DAT-024.* A reader MUST accept a duration in any {abbr-iso} 8601 form that has no decimal fraction.
+This includes forms with a gap in the units, such as `P1Y1D` and `PT1H1S`.
+Common libraries, such as `java.time` in Java, write these forms.
+A reader that accepts only the strict grammar would reject correct data.
+This rule does not cover fractions, such as `PT0.5S`, since {abbr-rfc} 3339 leaves them out.
 
 [[DAT-021]]
 *DAT-021.* A duration that measures elapsed time exactly SHOULD use only hours, minutes and seconds, such as `PT36H`.
@@ -28,6 +35,7 @@ When a field must hold a count of time units, its name gives the unit, such as `
 
 [[DAT-023]]
 *DAT-023.* An interval MUST be a {abbr-json-first} object with a `start` member and an `end` member of the same type.
+This specification sets these two member names, so every interval reads the same way.
 The start is part of the interval and the end is not.
 An interval without an end leaves the `end` member out.
 Intervals of this kind join end to end with no gap and no overlap.
@@ -52,6 +60,7 @@ An interface can still show the last valid day to people.
 |===
 
 LinkML has no built-in duration type, so the `Duration` type is a string with a pattern.
+The pattern accepts every form that DAT-024 requires a reader to accept, and it rejects fractions.
 
 == Document history
 

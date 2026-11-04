@@ -12,16 +12,18 @@ One encoding everywhere means that no reader has to guess.
 A byte order mark adds nothing in {abbr-utf-8} and breaks some parsers.
 
 [[DAT-002]]
-*DAT-002.* A system MUST convert text to Unicode Normalization Form C before it stores or compares it.
+*DAT-002.* A system MUST convert text to Unicode Normalization Form C before it stores it.
 The same letter can have two encodings, such as "é" as one character or as "e" plus an accent.
-Without one form, a search or a comparison misses text that looks the same.
+Without one stored form, two copies of the same text differ byte by byte.
 The forms come from link:https://www.unicode.org/reports/tr15/[Unicode Standard Annex #15].
 Form C is the compact form that most keyboards and systems already produce.
 The rule does not apply to signed content or to input of a hash, whose exact bytes matter.
 
+The {abbr-fpsot-first} internationalization specification covers how to compare and search text.
+
 [[DAT-003]]
 *DAT-003.* {abbr-json} data MUST meet the Internet {abbr-json} profile of link:https://www.rfc-editor.org/rfc/rfc7493[{abbr-rfc} 7493].
-Among other limits, it forbids two members with the same name in one object, and unpaired surrogate characters.
+Among other limits, it forbids two members with the same name in one object, and unpaired surrogates.
 Parsers handle those cases in different ways, so two systems could read the same data differently.
 
 == Multilingual text
@@ -29,7 +31,7 @@ Parsers handle those cases in different ways, so two systems could read the same
 [[DAT-004]]
 *DAT-004.* Text in more than one language MUST be a {abbr-json} object, with one member per language.
 Each member name is a language tag, and each value is the text in that language.
-Language tags follow the {abbr-fpsot-first} internationalization specification.
+Language tags follow the {abbr-fpsot} internationalization specification.
 One object keeps all the languages of a value together, and any reader can pick its language.
 
 [source,json]

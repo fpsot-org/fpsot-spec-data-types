@@ -27,13 +27,17 @@ Le schéma d’un champ indique la précision qu’écrit son producteur.
 Le format du {abbr-rfc} 3339 permet cette valeur pour une seconde intercalaire.
 La plupart des horloges étalent la seconde intercalaire sur une période plus longue et n’affichent jamais `60`.
 Une seconde intercalaire, même rare, ne doit pas faire rejeter un dossier.
-En 2022, la Conférence générale des poids et mesures a choisi d’élargir l’écart permis avec la rotation de la Terre.
-Le changement arrive d’ici 2035, et les secondes intercalaires cessent alors.
+
+En 2022, la Conférence générale des poids et mesures a adopté sa link:https://www.bipm.org/fr/cgpm-2022/resolution-4[résolution 4].
+Celle-ci élargit d’ici 2035 l’écart permis avec la rotation de la Terre, sans mettre elle-même fin aux secondes intercalaires.
+On s’attend tout de même à ce que les secondes intercalaires cessent d’ici 2035.
 
 [[DAT-013]]
 *DAT-013.* Les données échangées NE DOIVENT PAS exprimer une date ou un instant en nombre, comme des secondes depuis 1970.
-Un lecteur ne peut pas connaître l’unité d’un tel nombre, ni le vérifier à l’œil.
-Les grandes valeurs dépassent aussi les entiers que tout analyseur {abbr-json-first} lit exactement.
+Un lecteur ne peut pas savoir si un tel nombre compte des secondes ou des millisecondes.
+Les personnes ne peuvent pas le lire non plus, et personne ne peut donc le vérifier à l’œil.
+Les secondes et les millisecondes tiennent exactement dans un nombre {abbr-json-first}.
+Un nombre de nanosecondes dépasse toutefois 2^53^, et au-delà de cette limite certains analyseurs perdent des chiffres.
 
 == Dates
 

@@ -75,6 +75,7 @@ linkml-validate -s permit.yaml -C BuildingPermit permit.json
 ----
 
 The validator rejects an offset in `issuedAt`, a number in `fee.amount`, an upper-case `id` and a missing French title.
+When your system receives an upper-case `id` from elsewhere, convert it to lower case before you validate it.
 
 == Check your build
 

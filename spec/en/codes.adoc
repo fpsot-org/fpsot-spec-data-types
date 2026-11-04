@@ -23,7 +23,8 @@ Codes that another body issues keep their own form, as the xref:identifiers.adoc
 [[DAT-073]]
 *DAT-073.* An interface MUST show people the multilingual label of a code value, not the code value itself.
 The code is for machines, and it stays the same in every language.
-The label is multilingual text, as the xref:text.adoc[text rules] set.
+The {abbr-fpsot} naming specification sets the same rule for code lists.
+Here, the label is multilingual text, as the xref:text.adoc[text rules] set.
 
 == JSON form and LinkML type
 

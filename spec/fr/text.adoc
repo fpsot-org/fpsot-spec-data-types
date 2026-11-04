@@ -12,16 +12,18 @@ Un seul codage partout évite à chaque lecteur de deviner.
 L’indicateur d’ordre des octets n’apporte rien en {abbr-utf-8} et fait échouer certains analyseurs.
 
 [[DAT-002]]
-*DAT-002.* Un système DOIT convertir le texte en forme de normalisation C d’Unicode avant de le conserver ou comparer.
+*DAT-002.* Un système DOIT convertir le texte en forme de normalisation C d’Unicode avant de le conserver.
 Une même lettre peut avoir deux codages, par exemple « é » en un seul caractère ou en « e » suivi d’un accent.
-Sans forme unique, une recherche ou une comparaison manque du texte qui paraît identique.
+Sans forme unique à la conservation, deux copies du même texte diffèrent octet par octet.
 Les formes viennent de l’link:https://www.unicode.org/reports/tr15/[annexe 15 de la norme Unicode].
 La forme C est la forme compacte que produisent déjà la plupart des claviers et des systèmes.
 La règle ne s’applique pas au contenu signé ni aux données d’un hachage, dont les octets exacts comptent.
 
+La spécification de {abbr-fpsot-first} sur l’internationalisation traite de la comparaison et de la recherche de texte.
+
 [[DAT-003]]
 *DAT-003.* Les données {abbr-json} DOIVENT respecter le profil Internet {abbr-json} du link:https://www.rfc-editor.org/rfc/rfc7493[{abbr-rfc} 7493].
-Ce profil interdit notamment deux membres de même nom dans un objet, et les caractères de substitution isolés.
+Ce profil interdit notamment deux membres de même nom dans un objet, et les seizets d’indirection isolés.
 Les analyseurs traitent ces cas de façons différentes.
 Deux systèmes pourraient alors lire différemment les mêmes données.
 
@@ -30,7 +32,7 @@ Deux systèmes pourraient alors lire différemment les mêmes données.
 [[DAT-004]]
 *DAT-004.* Un texte en plus d’une langue DOIT être un objet {abbr-json}, avec un membre par langue.
 Le nom de chaque membre est une étiquette de langue, et sa valeur est le texte dans cette langue.
-Les étiquettes de langue suivent la spécification de {abbr-fpsot-first} sur l’internationalisation.
+Les étiquettes de langue suivent la spécification de {abbr-fpsot} sur l’internationalisation.
 Un seul objet garde ensemble toutes les langues d’une valeur, et chaque lecteur peut choisir la sienne.
 
 [source,json]

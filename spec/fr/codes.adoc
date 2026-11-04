@@ -23,7 +23,8 @@ Les codes qu’attribue un autre organisme gardent leur propre forme, comme le f
 [[DAT-073]]
 *DAT-073.* Une interface DOIT montrer aux personnes le libellé multilingue d’une valeur de code, et non le code lui-même.
 Le code sert aux machines, et il reste le même dans toutes les langues.
-Le libellé est un texte multilingue, comme le fixent les xref:text.adoc[règles sur le texte].
+La spécification de {abbr-fpsot} sur le nommage fixe la même règle pour les listes de codes.
+Ici, le libellé est un texte multilingue, comme le fixent les xref:text.adoc[règles sur le texte].
 
 == Forme JSON et type LinkML
 

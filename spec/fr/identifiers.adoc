@@ -43,6 +43,11 @@ La forme canonique compte 32 chiffres hexadécimaux, en groupes reliés par des 
 Les groupes ont 8, 4, 4, 4 et 12 chiffres.
 Avec une seule forme, les identifiants se comparent comme du texte.
 
+[[DAT-067]]
+*DAT-067.* Un lecteur DEVRAIT accepter un {abbr-uuid} en majuscules ou en casse mixte, et le convertir en minuscules.
+Certains systèmes envoient des majuscules, car le {abbr-rfc} 9562 permet toute casse en entrée.
+Après la conversion, l’identifiant se compare comme du texte, comme le veut DAT-065.
+
 == Identifiants d’autres organismes
 
 [[DAT-066]]
@@ -64,6 +69,8 @@ Une forme modifiée ne correspond plus aux dossiers de l’organisme qui l’a a
 |===
 
 Une classe LinkML marque son attribut d’identifiant avec `identifier: true`, et lui donne un de ces types comme domaine de valeurs.
+Les motifs `Uuid` et `Uuid7` n’acceptent que les minuscules, car le modèle vérifie les données telles qu’un système les écrit.
+Un lecteur convertit les autres casses en minuscules, comme le dit DAT-067, avant la validation.
 
 == Historique du document
 

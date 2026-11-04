@@ -40,6 +40,11 @@ A version 4 {abbr-uuid} is random and reveals nothing.
 The canonical form has 32 hexadecimal digits in groups of 8, 4, 4, 4 and 12, joined by hyphens.
 One form makes identifiers compare as plain text.
 
+[[DAT-067]]
+*DAT-067.* A reader SHOULD accept a {abbr-uuid} in upper case or mixed case, and convert it to lower case.
+Some systems send upper case, since {abbr-rfc} 9562 allows any case on input.
+After the conversion, the identifier compares as plain text, as DAT-065 intends.
+
 == Identifiers from other bodies
 
 [[DAT-066]]
@@ -60,6 +65,8 @@ A changed form no longer matches the records of the issuer.
 |===
 
 A LinkML class marks its identifier slot with `identifier: true`, and gives it one of these types as its range.
+The `Uuid` and `Uuid7` patterns accept only lower case, since the model checks data as a system writes it.
+A reader converts other cases to lower case, as DAT-067 says, before it validates.
 
 == Document history
 

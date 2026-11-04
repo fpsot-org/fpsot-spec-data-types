@@ -7,11 +7,11 @@
 - [Overview](spec/en/index.adoc): scope, parts and conformance.
 - [Text](spec/en/text.adoc): DAT-001 to DAT-006.
 - [Dates and times](spec/en/dates.adoc): DAT-010 to DAT-016.
-- [Durations and intervals](spec/en/durations.adoc): DAT-020 to DAT-023.
+- [Durations and intervals](spec/en/durations.adoc): DAT-020 to DAT-024.
 - [Time zones](spec/en/time-zones.adoc): DAT-030 to DAT-034.
 - [Numbers](spec/en/numbers.adoc): DAT-040 to DAT-043.
 - [Money](spec/en/money.adoc): DAT-050 to DAT-055.
-- [Identifiers](spec/en/identifiers.adoc): DAT-060 to DAT-066.
+- [Identifiers](spec/en/identifiers.adoc): DAT-060 to DAT-067.
 - [Booleans and code values](spec/en/codes.adoc): DAT-070 to DAT-073.
 - [Coordinates](spec/en/geography.adoc): DAT-080 to DAT-082.
 

@@ -26,13 +26,17 @@ The schema of a field states the precision that its producer writes.
 The {abbr-rfc} 3339 format allows that value for a leap second.
 Most clocks spread a leap second over a longer period and never show `60`.
 A rare leap second must still not make a reader reject a record.
-In 2022, the General Conference on Weights and Measures chose to widen the allowed gap with the Earth's rotation.
-The change comes by 2035, and leap seconds then stop.
+
+In 2022, the General Conference on Weights and Measures adopted link:https://www.bipm.org/en/cgpm-2022/resolution-4[Resolution 4].
+It widens the allowed gap with the Earth's rotation by 2035, but it does not itself end leap seconds.
+Leap seconds are still expected to stop by 2035.
 
 [[DAT-013]]
 *DAT-013.* Exchanged data MUST NOT hold a date or an instant as a number, such as seconds since 1970.
-A reader cannot tell the unit of such a number, nor check it by eye.
-Large values also exceed the integers that every {abbr-json-first} parser reads exactly.
+A reader cannot tell whether such a number counts seconds or milliseconds.
+People cannot read it either, so nobody can check it by eye.
+Seconds and milliseconds fit exactly in a {abbr-json-first} number.
+A count of nanoseconds, however, goes beyond 2^53^, and above that limit some parsers lose digits.
 
 == Dates
 

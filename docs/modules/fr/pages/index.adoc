@@ -76,6 +76,7 @@ linkml-validate -s permit.yaml -C BuildingPermit permit.json
 ----
 
 Le validateur refuse un décalage dans `issuedAt`, un nombre dans `fee.amount`, un `id` en majuscules et un titre français manquant.
+Quand votre système reçoit d’ailleurs un `id` en majuscules, convertissez-le en minuscules avant de le valider.
 
 == Vérifier votre construction
 

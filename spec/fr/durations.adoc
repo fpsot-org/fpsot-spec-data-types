@@ -7,12 +7,18 @@ Un intervalle est la période entre deux points dans le temps, par exemple la va
 == Durées
 
 [[DAT-020]]
-*DAT-020.* Une durée DOIT employer la forme {abbr-iso-first} 8601, dans la grammaire de l’annexe A du link:https://www.rfc-editor.org/rfc/rfc3339[{abbr-rfc-first} 3339].
+*DAT-020.* Un système qui écrit une durée DEVRAIT employer la forme stricte {abbr-iso-first} 8601 de l’annexe A du link:https://www.rfc-editor.org/rfc/rfc3339[{abbr-rfc-first} 3339].
 Par exemple : `PT30M` pour 30 minutes, et `P1Y2M` pour un an et deux mois.
 Les semaines s’écrivent seules, comme dans `P2W`, et aucune unité n’a de fraction décimale.
 Les unités vont de la plus grande à la plus petite, sans trou : un an et un jour s’écrit `P1Y0M1D`.
-La forme nomme chaque unité.
-Le lecteur n’a jamais à deviner si un nombre compte des secondes ou des jours.
+La forme nomme chaque unité, et tous les lecteurs acceptent sa grammaire stricte.
+
+[[DAT-024]]
+*DAT-024.* Un lecteur DOIT accepter une durée dans toute forme {abbr-iso} 8601 qui n’a pas de fraction décimale.
+Cela comprend les formes où il manque des unités intermédiaires, comme `P1Y1D` et `PT1H1S`.
+Des bibliothèques courantes, comme `java.time` en Java, écrivent ces formes.
+Un lecteur qui n’accepte que la grammaire stricte rejetterait des données correctes.
+Cette règle ne vise pas les fractions, comme `PT0.5S`, que le {abbr-rfc} 3339 exclut.
 
 [[DAT-021]]
 *DAT-021.* Une durée qui mesure exactement un temps écoulé DEVRAIT employer seulement des heures, minutes et secondes, comme `PT36H`.
@@ -29,6 +35,7 @@ Quand un champ doit contenir un nombre d’unités de temps, son nom donne l’u
 
 [[DAT-023]]
 *DAT-023.* Un intervalle DOIT être un objet {abbr-json-first} avec un membre `start` et un membre `end` du même type.
+La présente spécification fixe ces deux noms de membres, et tous les intervalles se lisent donc de la même façon.
 Le début fait partie de l’intervalle, mais pas la fin.
 Un intervalle sans fin laisse le membre `end` absent.
 Ces intervalles se suivent bout à bout sans trou ni chevauchement.
@@ -53,6 +60,7 @@ Une interface peut quand même montrer aux personnes le dernier jour de validit�
 |===
 
 LinkML n’a pas de type de durée intégré, et le type `Duration` est donc une chaîne avec un motif.
+Le motif accepte toutes les formes que DAT-024 oblige un lecteur à accepter, et il rejette les fractions.
 
 == Historique du document
 
