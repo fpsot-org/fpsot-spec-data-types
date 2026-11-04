@@ -1,9 +1,37 @@
-= Titre de la spécification
-:translation-status: pending
+= Spécification FPSOT sur les types de données
 include::_fpsot-terms.adoc[]
 
-Remplacez cette page par le texte normatif de la spécification.
-Commencez par la portée, puis les classes de conformité, puis les exigences.
+Cette spécification fixe comment les systèmes de la {abbr-fpsot-first} conservent et échangent les types de données courants.
+Elle porte sur le texte, les dates, les durées et les fuseaux horaires.
+Elle porte aussi sur les nombres, l’argent, les identifiants, les valeurs de code et les coordonnées.
+Chaque type a une seule forme {abbr-json-first} et un seul type LinkML.
+Deux systèmes qui la suivent lisent alors les données l’un de l’autre sans table de conversion.
+
+Les règles comportent neuf parties.
+
+* Le xref:text.adoc[texte] : le codage des caractères et la forme du texte multilingue.
+* Les xref:dates.adoc[dates et heures] : la forme des instants, des dates, des heures locales et des heures du jour.
+* Les xref:durations.adoc[durées et intervalles] : la forme d’une durée et d’une période entre deux points.
+* Les xref:time-zones.adoc[fuseaux horaires] : comment nommer un fuseau horaire et quelle base de données utiliser.
+* Les xref:numbers.adoc[nombres] : quand employer un nombre {abbr-json} et quand employer une chaîne décimale.
+* L’xref:money.adoc[argent] : la forme d’un montant et de sa monnaie, et la façon d’arrondir.
+* Les xref:identifiers.adoc[identifiants] : la forme des nouveaux identifiants et la conservation de ceux d’autres organismes.
+* Les xref:codes.adoc[booléens et valeurs de code] : la forme des valeurs oui ou non et des valeurs tirées d’une liste fixe.
+* Les xref:geography.adoc[coordonnées] : la forme des points et des formes géométriques sur la Terre.
+
+== Spécifications liées
+
+Cette spécification s’appuie sur deux autres spécifications de {abbr-fpsot}.
+La spécification de {abbr-fpsot} sur le nommage fixe la casse des noms de champs et des valeurs de code.
+La spécification de {abbr-fpsot} sur l’internationalisation fixe les étiquettes de langue.
+Elle fixe aussi comment afficher chaque type aux personnes.
+La présente spécification fixe seulement la forme conservée et échangée.
+
+== Modèle LinkML
+
+Le fichier `model/data-types.yaml` définit en LinkML chaque type et chaque classe de cette spécification.
+Un modèle peut l’importer et employer ses types comme domaines de valeurs.
+Chaque page donne le type LinkML de chaque forme.
 
 == Conformité
 
@@ -12,24 +40,16 @@ ____
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 (RFC 2119, RFC 8174) when, and only when, they appear in all capitals, as shown here.
 ____
 
-La version française emploie les mots clés français de la spécification de rédaction de la {abbr-fpsot-first}, à l'exigence WRT-011.
+Les mots clés suivent l’exigence WRT-010 de la spécification de rédaction de {abbr-fpsot}.
+La version française emploie les mots clés français de l’exigence WRT-011.
 
-== Exigences
-
-Donnez à chaque exigence une ancre avec son identifiant, juste au-dessus de son paragraphe.
-L'ancre ressemble à `+[[XYZ-001]]+`.
-L'exemple ci-dessous montre la forme. Remplacez-le par la première exigence.
-
-[[TPL-001]]
-*TPL-001.* Un énoncé normatif DOIT employer un des mots clés du {abbr-bcp-first} 14, en majuscules.
-Le mot clé donne sa force à la règle.
+Un système est conforme à cette spécification quand les données qu’il conserve et échange respectent toutes les règles DOIT.
+Un modèle de données est conforme quand chacun de ses champs emploie la forme fixée ici pour son type.
 
 == Historique du document
-
-Ajoutez une ligne pour chaque version qui modifie cette page.
 
 [cols="1,1,4",options="header"]
 |===
 |Version |Date |Changement
-|0.1.0 |2026-11-03 |Première version.
+|0.1.0 |2026-11-04 |Première version.
 |===

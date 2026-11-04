@@ -1,0 +1,74 @@
+= Identifiants
+include::_fpsot-terms.adoc[]
+
+Un identifiant désigne un dossier, et continue de le désigner tant que le dossier existe.
+Ces règles portent sur les identifiants qu’un système crée et sur ceux que d’autres organismes attribuent.
+
+== Tous les identifiants
+
+[[DAT-060]]
+*DAT-060.* Un identifiant DOIT être une chaîne {abbr-json-first}, même quand il ne contient que des chiffres.
+Dans un nombre, les chiffres perdent leurs zéros de tête.
+Les longs identifiants dépassent aussi l’intervalle exact des xref:numbers.adoc[règles sur les nombres].
+Personne n’additionne ni ne compare des identifiants comme des nombres, et une chaîne convient donc à leur usage.
+
+[[DAT-061]]
+*DAT-061.* Un lecteur DOIT traiter un identifiant comme opaque, et ne tirer aucun sens de son contenu.
+Cela inclut l’heure de création que contient un {abbr-uuid-first} de version 7.
+Le producteur peut alors changer sa façon de créer les identifiants sans nuire à aucun lecteur.
+
+[[DAT-062]]
+*DAT-062.* Un identifiant qu’un système crée NE DOIT PAS contenir de renseignements sur une personne, un lieu ou une entreprise.
+Par exemple : un nom, une date de naissance, une région, ou un numéro de séquence qui révèle un total.
+Les identifiants circulent dans des journaux, des liens et d’autres systèmes qui ne voient jamais le dossier lui-même.
+Les faits changent aussi, mais un identifiant ne doit pas changer.
+
+== Nouveaux identifiants
+
+[[DAT-063]]
+*DAT-063.* Un système qui crée un identifiant DEVRAIT employer un {abbr-uuid} de version 7, défini par le link:https://www.rfc-editor.org/rfc/rfc9562[{abbr-rfc-first} 9562].
+Tout système peut en créer un sans consulter un service central.
+Ses premiers bits contiennent l’heure de création.
+Les nouvelles valeurs se trient donc dans l’ordre et gardent les index compacts.
+
+[[DAT-064]]
+*DAT-064.* Un système DOIT plutôt employer un {abbr-uuid} de version 4 quand l’heure de création d’un dossier est elle-même sensible.
+Un {abbr-uuid} de version 7 montre à quiconque la milliseconde où le système a créé le dossier.
+Par exemple : le dossier d’un signalement à un service de protection.
+Un {abbr-uuid} de version 4 est aléatoire et ne révèle rien.
+
+[[DAT-065]]
+*DAT-065.* Un système DOIT écrire un {abbr-uuid} sous sa forme canonique, en minuscules, comme `019a4f3c-8b2e-7c41-9d3a-5f6e7a8b9c0d`.
+La forme canonique compte 32 chiffres hexadécimaux, en groupes reliés par des traits d’union.
+Les groupes ont 8, 4, 4, 4 et 12 chiffres.
+Avec une seule forme, les identifiants se comparent comme du texte.
+
+== Identifiants d’autres organismes
+
+[[DAT-066]]
+*DAT-066.* Un système DOIT garder un identifiant d’un autre organisme en chaîne, dans la forme exacte de l’organisme émetteur.
+Par exemple : un numéro d’entreprise, un code postal, un code de pays ou un code de monnaie.
+La forme garde sa casse et ses zéros de tête.
+Elle peut alors différer des règles de {abbr-fpsot-first} sur les valeurs de code.
+Le schéma du champ nomme le système d’identification qui l’attribue.
+Une forme modifiée ne correspond plus aux dossiers de l’organisme qui l’a attribuée.
+
+== Forme JSON et type LinkML
+
+[cols="2,3,3",options="header"]
+|===
+|Type |Forme JSON |LinkML
+|Nouvel identifiant |Chaîne, comme `"019a4f3c-8b2e-7c41-9d3a-5f6e7a8b9c0d"` |Type `Uuid7`, fondé sur `string`, avec un motif
+|Tout UUID |Chaîne en minuscules |Type `Uuid`, fondé sur `string`, avec un motif
+|Identifiant d’un autre organisme |Chaîne dans la forme de l’organisme qui l’attribue |`string`, avec le motif de cet organisme quand il en existe un
+|===
+
+Une classe LinkML marque son attribut d’identifiant avec `identifier: true`, et lui donne un de ces types comme domaine de valeurs.
+
+== Historique du document
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Changement
+|0.1.0 |2026-11-04 |Première version.
+|===

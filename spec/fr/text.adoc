@@ -1,0 +1,69 @@
+= Texte
+include::_fpsot-terms.adoc[]
+
+Ces règles portent sur les caractères de toute chaîne et sur le texte écrit en plus d’une langue.
+
+== Codage
+
+[[DAT-001]]
+*DAT-001.* Le texte DOIT employer le codage {abbr-utf-8-first}, sans indicateur d’ordre des octets.
+La norme {abbr-json-first}, le link:https://www.rfc-editor.org/rfc/rfc8259[{abbr-rfc-first} 8259], exige déjà l’{abbr-utf-8} entre les systèmes.
+Un seul codage partout évite à chaque lecteur de deviner.
+L’indicateur d’ordre des octets n’apporte rien en {abbr-utf-8} et fait échouer certains analyseurs.
+
+[[DAT-002]]
+*DAT-002.* Un système DOIT convertir le texte en forme de normalisation C d’Unicode avant de le conserver ou comparer.
+Une même lettre peut avoir deux codages, par exemple « é » en un seul caractère ou en « e » suivi d’un accent.
+Sans forme unique, une recherche ou une comparaison manque du texte qui paraît identique.
+Les formes viennent de l’link:https://www.unicode.org/reports/tr15/[annexe 15 de la norme Unicode].
+La forme C est la forme compacte que produisent déjà la plupart des claviers et des systèmes.
+La règle ne s’applique pas au contenu signé ni aux données d’un hachage, dont les octets exacts comptent.
+
+[[DAT-003]]
+*DAT-003.* Les données {abbr-json} DOIVENT respecter le profil Internet {abbr-json} du link:https://www.rfc-editor.org/rfc/rfc7493[{abbr-rfc} 7493].
+Ce profil interdit notamment deux membres de même nom dans un objet, et les caractères de substitution isolés.
+Les analyseurs traitent ces cas de façons différentes.
+Deux systèmes pourraient alors lire différemment les mêmes données.
+
+== Texte multilingue
+
+[[DAT-004]]
+*DAT-004.* Un texte en plus d’une langue DOIT être un objet {abbr-json}, avec un membre par langue.
+Le nom de chaque membre est une étiquette de langue, et sa valeur est le texte dans cette langue.
+Les étiquettes de langue suivent la spécification de {abbr-fpsot-first} sur l’internationalisation.
+Un seul objet garde ensemble toutes les langues d’une valeur, et chaque lecteur peut choisir la sienne.
+
+[source,json]
+----
+{"en": "Building permit", "fr": "Permis de construction"}
+----
+
+[[DAT-005]]
+*DAT-005.* Un texte multilingue que publie {abbr-fpsot} DOIT avoir à la fois le membre `en` et le membre `fr`.
+La fondation publie tout en anglais et en français.
+Le profil d’une {term-jurisdiction} peut exiger d’autres langues.
+
+[[DAT-006]]
+*DAT-006.* Un membre d’un texte multilingue NE DOIT PAS contenir une chaîne vide.
+Une traduction manquante laisse son membre absent.
+Une chaîne vide ressemble à une traduction, et le lecteur afficherait un blanc au lieu d’une langue de repli.
+
+== Forme JSON et type LinkML
+
+[cols="2,3,3",options="header"]
+|===
+|Type |Forme JSON |LinkML
+|Texte |Chaîne en UTF-8, forme de normalisation C |`string`
+|Texte multilingue |Objet dont les clés sont des étiquettes de langue |Classe `MultilingualText`, avec les attributs `en` et `fr`
+|===
+
+La classe exige `en` et `fr`, et son réglage `extra_slots` accepte des membres pour d’autres langues.
+LinkML vérifie que chaque membre de plus contient une chaîne non vide, mais il ne vérifie pas l’étiquette de langue.
+
+== Historique du document
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Changement
+|0.1.0 |2026-11-04 |Première version.
+|===

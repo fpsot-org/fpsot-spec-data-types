@@ -1,0 +1,52 @@
+= Numbers
+include::_fpsot-terms.adoc[]
+
+A {abbr-json-first} number has no fixed size in its text.
+Most parsers still read it as a 64-bit binary floating-point number.
+That format holds integers exactly only up to 2^53^, and it cannot hold most decimal fractions exactly.
+`0.1`, for example, becomes a value slightly above one tenth.
+These rules keep every number that must be exact out of that format.
+
+[[DAT-040]]
+*DAT-040.* An integer beyond plus or minus 2^53^ − 1 MUST be a {abbr-json} string of decimal digits.
+The profile of link:https://www.rfc-editor.org/rfc/rfc7493[{abbr-rfc-first} 7493] sets this range for numbers that every parser reads exactly.
+A parser would silently change a larger integer.
+
+[[DAT-041]]
+*DAT-041.* An exact decimal value MUST be a {abbr-json} string in decimal form, such as `"12.50"` or `"-0.075"`.
+Examples are rates, legal areas and quantities with a set number of decimals.
+The string has an optional minus sign, digits, and an optional point followed by digits.
+It has no exponent, no plus sign, no group separators and no extra leading zero.
+A string keeps every digit, including trailing zeros that show the precision.
+
+[[DAT-042]]
+*DAT-042.* A measured value MAY be a {abbr-json} number when a small rounding error does not matter.
+Examples are sensor readings, coordinates and statistics.
+A 64-bit binary floating-point number keeps 15 or more significant digits, which is enough for such values.
+
+[[DAT-043]]
+*DAT-043.* The schema of a field that holds a quantity SHOULD state its unit.
+A number without a unit can mean metres or feet, and seconds or days.
+In LinkML, the `unit` slot of a slot definition records the unit.
+
+== JSON form and LinkML type
+
+[cols="2,3,3",options="header"]
+|===
+|Type |JSON form |LinkML
+|Integer within the exact range |Number, such as `42` |`integer`
+|Large integer |String of digits, such as `"9007199254740993"` |`string`, with a pattern
+|Exact decimal |String, such as `"12.50"` |Type `DecimalString`, based on `string`, with a pattern
+|Measured value |Number, such as `21.5` |`double`
+|===
+
+LinkML's own `decimal` type becomes a {abbr-json} number in a {abbr-json} Schema, so it would lose exactness.
+The `DecimalString` type keeps the value as text.
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-04 |First version.
+|===

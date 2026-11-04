@@ -1,0 +1,46 @@
+= Coordonnées
+include::_fpsot-terms.adoc[]
+
+Ces règles portent sur les points et les formes géométriques sur la Terre, par exemple l’emplacement d’un bâtiment.
+Elles s’en tiennent aux bases dont ont besoin la plupart des services publics.
+Les levés d’arpentage et les travaux d’ingénierie demandent souvent un système de référence national, que ces règles ne couvrent pas.
+
+[[DAT-080]]
+*DAT-080.* Une coordonnée DOIT employer le système {abbr-wgs-84-first} en degrés décimaux, avec la longitude d’abord et la latitude ensuite.
+Par exemple : `[-71.208, 46.814]` pour un point dans la ville de Québec.
+Le format GeoJSON du link:https://www.rfc-editor.org/rfc/rfc7946[{abbr-rfc-first} 7946] fixe ce système et cet ordre.
+Les lecteurs supposent souvent que la latitude vient d’abord, et l’ordre demande donc une règle ferme.
+
+[[DAT-081]]
+*DAT-081.* Un point ou une forme géométrique dans des données {abbr-json-first} DOIT être un objet géométrique GeoJSON, sans membre `crs`.
+GeoJSON est le format {abbr-json} que lisent la plupart des outils de cartographie.
+La version GeoJSON du {abbr-rfc} 7946 a retiré le membre `crs`, puisque toute coordonnée y emploie le {abbr-wgs-84}.
+
+[source,json]
+----
+{"type": "Point", "coordinates": [-71.208, 46.814]}
+----
+
+[[DAT-082]]
+*DAT-082.* Une coordonnée NE DEVRAIT PAS avoir plus de six décimales.
+Six décimales d’un degré situent un point à environ 10 centimètres près.
+Peu de sources mesurent plus finement.
+Les chiffres de trop suggèrent une précision que les données n’ont pas.
+Moins de chiffres protègent aussi la vie privée quand un point situe une personne.
+
+== Forme JSON et type LinkML
+
+[cols="2,3,3",options="header"]
+|===
+|Type |Forme JSON |LinkML
+|Point |Objet GeoJSON `Point` |Classe `Point`, avec `type` et `coordinates`
+|Autres formes |Objet géométrique GeoJSON |Une classe de même structure, ou un renvoi au schéma GeoJSON
+|===
+
+== Historique du document
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Changement
+|0.1.0 |2026-11-04 |Première version.
+|===

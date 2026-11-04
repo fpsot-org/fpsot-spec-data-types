@@ -1,0 +1,46 @@
+= Coordinates
+include::_fpsot-terms.adoc[]
+
+These rules cover points and shapes on the Earth, such as the location of a building.
+They keep to the basics that most public services need.
+Land surveys and engineering work often need a national reference frame, which these rules do not cover.
+
+[[DAT-080]]
+*DAT-080.* A coordinate MUST use the {abbr-wgs-84-first} reference system in decimal degrees, with the longitude first and the latitude second.
+An example is `[-71.208, 46.814]` for a point in Québec City.
+The GeoJSON format of link:https://www.rfc-editor.org/rfc/rfc7946[{abbr-rfc-first} 7946] sets this system and this order.
+Readers often assume the latitude comes first, so the order needs a firm rule.
+
+[[DAT-081]]
+*DAT-081.* A point or a shape in {abbr-json-first} data MUST be a GeoJSON geometry object, without a `crs` member.
+GeoJSON is the {abbr-json} format that most mapping tools read.
+The {abbr-rfc} 7946 version of GeoJSON removed the `crs` member, since every coordinate uses {abbr-wgs-84}.
+
+[source,json]
+----
+{"type": "Point", "coordinates": [-71.208, 46.814]}
+----
+
+[[DAT-082]]
+*DAT-082.* A coordinate SHOULD NOT have more than six decimal places.
+Six decimal places of a degree locate a point to about 10 centimetres.
+Few sources measure more finely than that.
+Extra digits suggest a precision that the data does not have.
+Fewer digits also protect privacy when a point locates a person.
+
+== JSON form and LinkML type
+
+[cols="2,3,3",options="header"]
+|===
+|Type |JSON form |LinkML
+|Point |GeoJSON `Point` object |Class `Point`, with `type` and `coordinates`
+|Other shapes |GeoJSON geometry object |A class with the same structure, or a reference to the GeoJSON schema
+|===
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-04 |First version.
+|===

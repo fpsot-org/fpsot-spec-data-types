@@ -1,0 +1,46 @@
+= Booléens et valeurs de code
+include::_fpsot-terms.adoc[]
+
+Un booléen contient oui ou non.
+Une valeur de code contient une valeur d’une liste fixe, par exemple l’état d’une demande.
+
+[[DAT-070]]
+*DAT-070.* Un booléen DOIT être le littéral {abbr-json-first} `true` ou `false`, jamais une chaîne ni un nombre.
+Tout analyseur {abbr-json} lit les littéraux de la même façon.
+Les chaînes comme `"O"` et les nombres comme `1` demandent une convention que chaque lecteur doit connaître.
+
+[[DAT-071]]
+*DAT-071.* Un champ à plus de deux états, ou pouvant en gagner un troisième, DEVRAIT être une valeur de code.
+Un état comme « approuvé » gagne souvent un état comme « suspendu ».
+Deux booléens pour un seul état permettent des combinaisons qui ne veulent rien dire.
+
+[[DAT-072]]
+*DAT-072.* Une valeur de code DOIT être une chaîne {abbr-json} en minuscules et traits d’union, jamais un nombre.
+Par exemple : `in-review`, la casse que fixe la spécification de {abbr-fpsot-first} sur le nommage pour les valeurs de code.
+Un mot se lit bien dans les journaux et reste stable quand la liste s’allonge ou change d’ordre.
+Les codes qu’attribue un autre organisme gardent leur propre forme, comme le fixent les xref:identifiers.adoc[règles sur les identifiants].
+
+[[DAT-073]]
+*DAT-073.* Une interface DOIT montrer aux personnes le libellé multilingue d’une valeur de code, et non le code lui-même.
+Le code sert aux machines, et il reste le même dans toutes les langues.
+Le libellé est un texte multilingue, comme le fixent les xref:text.adoc[règles sur le texte].
+
+== Forme JSON et type LinkML
+
+[cols="2,3,3",options="header"]
+|===
+|Type |Forme JSON |LinkML
+|Booléen |`true` ou `false` |`boolean`
+|Valeur de code |Chaîne, comme `"in-review"` |Une énumération dont les valeurs permises sont les valeurs de code, ou le type `CodeValue`
+|===
+
+Une énumération LinkML liste toutes les valeurs permises, et un validateur refuse toute autre valeur.
+Le type `CodeValue` vérifie seulement la forme, pour les listes qui vivent hors du modèle.
+
+== Historique du document
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Changement
+|0.1.0 |2026-11-04 |Première version.
+|===

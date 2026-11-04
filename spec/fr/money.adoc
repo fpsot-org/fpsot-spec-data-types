@@ -1,0 +1,62 @@
+= Argent
+include::_fpsot-terms.adoc[]
+
+Un montant d’argent est exact, et il a toujours une monnaie.
+Ces règles gardent ces deux faits dans les données.
+
+[[DAT-050]]
+*DAT-050.* Un montant d’argent DOIT être un objet {abbr-json-first} avec un membre `amount` et un membre `currency`.
+Un montant sans sa monnaie devient ambigu dès qu’une deuxième monnaie apparaît.
+Les organismes publics paient et reçoivent des monnaies étrangères plus souvent que leurs systèmes ne le prévoient.
+
+[source,json]
+----
+{"amount": "12.50", "currency": "CAD"}
+----
+
+[[DAT-051]]
+*DAT-051.* Le membre `currency` DOIT être le code alphabétique de la liste {abbr-iso-first} 4217, en majuscules, comme `CAD`.
+Le code alphabétique est la forme que reconnaissent les personnes et la plupart des systèmes.
+Le code numérique, comme `124`, ajoute une recherche et se confond facilement avec un montant.
+
+[[DAT-052]]
+*DAT-052.* Le membre `amount` DOIT être une chaîne décimale, selon les xref:numbers.adoc[règles sur les nombres], jamais un nombre {abbr-json}.
+Dans la plupart des analyseurs, un nombre {abbr-json} passerait par la virgule flottante binaire.
+Une somme de ces valeurs pourrait alors s’écarter d’une fraction de cent.
+
+[[DAT-053]]
+*DAT-053.* Un montant à payer DOIT avoir le nombre de décimales que la norme {abbr-iso} 4217 fixe pour sa monnaie.
+Par exemple : le total d’une facture, un solde, un paiement ou une somme réglée.
+Le dollar canadien a deux décimales, et le yen japonais n’en a aucune.
+Les taux et les prix unitaires peuvent avoir plus de décimales, et leur schéma indique combien.
+Un nombre fixe de décimales montre que le montant est définitif, et le montant se compare tel qu’il est écrit.
+
+[[DAT-054]]
+*DAT-054.* Un système qui arrondit un montant DOIT indiquer la méthode d’arrondi et l’étape où il arrondit.
+Par exemple : l’arrondi « au plus proche, moitié vers le haut » ou l’arrondi « au pair ».
+Deux systèmes qui arrondissent de façons différentes ou à des étapes différentes divergent d’un cent.
+Une vérification relève alors l’écart.
+Quand une loi ou une règle fiscale fixe la méthode, le système suit cette règle et la cite.
+
+[[DAT-055]]
+*DAT-055.* Un système NE DOIT PAS calculer des montants d’argent avec des nombres à virgule flottante binaire.
+Les langages de programmation offrent des types décimaux à cette fin.
+En virgule flottante binaire, `0.10 + 0.20` ne donne pas `0.30`.
+
+== Forme JSON et type LinkML
+
+[cols="2,3,3",options="header"]
+|===
+|Type |Forme JSON |LinkML
+|Montant d’argent |Objet avec `amount` et `currency` |Classe `Money`
+|Montant |Chaîne, comme `"12.50"` |Type `DecimalString`
+|Monnaie |Chaîne, comme `"CAD"` |Type `CurrencyCode`, fondé sur `string`, avec un motif
+|===
+
+== Historique du document
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Changement
+|0.1.0 |2026-11-04 |Première version.
+|===

@@ -1,7 +1,25 @@
-= Titre de la spécification
+= Spécification FPSOT sur les types de données
 :doctype: book
 :toc:
 
 include::index.adoc[leveloffset=+1]
+
+include::text.adoc[leveloffset=+1]
+
+include::dates.adoc[leveloffset=+1]
+
+include::durations.adoc[leveloffset=+1]
+
+include::time-zones.adoc[leveloffset=+1]
+
+include::numbers.adoc[leveloffset=+1]
+
+include::money.adoc[leveloffset=+1]
+
+include::identifiers.adoc[leveloffset=+1]
+
+include::codes.adoc[leveloffset=+1]
+
+include::geography.adoc[leveloffset=+1]
 
 include::glossary.adoc[leveloffset=+1]

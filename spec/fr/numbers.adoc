@@ -1,0 +1,54 @@
+= Nombres
+include::_fpsot-terms.adoc[]
+
+Un nombre {abbr-json-first} n’a pas de taille fixe dans son texte.
+La plupart des analyseurs le lisent pourtant comme un nombre à virgule flottante binaire de 64 bits.
+Ce format ne garde les entiers exacts que jusqu’à 2^53^.
+Il ne peut pas non plus garder exactement la plupart des fractions décimales.
+Par exemple, `0.1` devient une valeur un peu supérieure à un dixième.
+Ces règles gardent hors de ce format tout nombre qui doit rester exact.
+
+[[DAT-040]]
+*DAT-040.* Un entier au-delà de plus ou moins 2^53^ − 1 DOIT être une chaîne {abbr-json} de chiffres décimaux.
+Le profil du link:https://www.rfc-editor.org/rfc/rfc7493[{abbr-rfc-first} 7493] fixe cet intervalle pour les nombres que tout analyseur lit exactement.
+Un analyseur changerait sans avertir un entier plus grand.
+
+[[DAT-041]]
+*DAT-041.* Une valeur décimale exacte DOIT être une chaîne {abbr-json} en forme décimale, comme `"12.50"` ou `"-0.075"`.
+Par exemple : des taux, des superficies légales et des quantités au nombre de décimales fixé.
+La chaîne a un signe moins facultatif, des chiffres, puis un point facultatif suivi de chiffres.
+Elle n’a ni exposant, ni signe plus, ni séparateur de milliers, ni zéro de tête en trop.
+Une chaîne garde chaque chiffre, y compris les zéros de fin qui montrent la précision.
+
+[[DAT-042]]
+*DAT-042.* Une valeur mesurée PEUT être un nombre {abbr-json} quand une petite erreur d’arrondi est sans importance.
+Par exemple : des lectures de capteurs, des coordonnées et des statistiques.
+Un nombre à virgule flottante binaire de 64 bits garde au moins 15 chiffres significatifs.
+Cela suffit pour ces valeurs.
+
+[[DAT-043]]
+*DAT-043.* Le schéma d’un champ qui contient une quantité DEVRAIT indiquer son unité.
+Un nombre sans unité peut vouloir dire des mètres ou des pieds, des secondes ou des jours.
+En LinkML, la propriété `unit` d’une définition d’attribut consigne l’unité.
+
+== Forme JSON et type LinkML
+
+[cols="2,3,3",options="header"]
+|===
+|Type |Forme JSON |LinkML
+|Entier dans l’intervalle exact |Nombre, comme `42` |`integer`
+|Grand entier |Chaîne de chiffres, comme `"9007199254740993"` |`string`, avec un motif
+|Décimal exact |Chaîne, comme `"12.50"` |Type `DecimalString`, fondé sur `string`, avec un motif
+|Valeur mesurée |Nombre, comme `21.5` |`double`
+|===
+
+Le type `decimal` de LinkML devient un nombre {abbr-json} dans un schéma {abbr-json}, et il perdrait l’exactitude.
+Le type `DecimalString` garde la valeur sous forme de texte.
+
+== Historique du document
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Changement
+|0.1.0 |2026-11-04 |Première version.
+|===

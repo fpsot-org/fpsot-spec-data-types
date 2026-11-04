@@ -1,0 +1,62 @@
+= Money
+include::_fpsot-terms.adoc[]
+
+An amount of money is exact, and it always has a currency.
+These rules keep both facts in the data.
+
+[[DAT-050]]
+*DAT-050.* An amount of money MUST be a {abbr-json-first} object with an `amount` member and a `currency` member.
+An amount without its currency is ambiguous as soon as a second currency appears.
+Public bodies pay and receive foreign currencies more often than their systems expect.
+
+[source,json]
+----
+{"amount": "12.50", "currency": "CAD"}
+----
+
+[[DAT-051]]
+*DAT-051.* The `currency` member MUST be the alphabetic code of the {abbr-iso-first} 4217 list, in capitals, such as `CAD`.
+The alphabetic code is the form that people and most systems recognize.
+The numeric code, such as `124`, adds a lookup and is easy to mistake for an amount.
+
+[[DAT-052]]
+*DAT-052.* The `amount` member MUST be a string in the decimal form of the xref:numbers.adoc[number rules], never a {abbr-json} number.
+A {abbr-json} number would pass through binary floating point in most parsers.
+A sum of such values can then be off by a fraction of a cent.
+
+[[DAT-053]]
+*DAT-053.* A payable amount MUST have as many decimals as the minor unit of its currency in {abbr-iso} 4217.
+Examples are an invoice total, a balance, a payment or a settled sum.
+The Canadian dollar has two decimals and the Japanese yen has none.
+Rates and unit prices can carry more decimals, and their schema states how many.
+A fixed number of decimals shows that the amount is final, and it compares as written.
+
+[[DAT-054]]
+*DAT-054.* A system that rounds an amount MUST state the rounding method and the step at which it rounds.
+Examples of methods are "half up" and "half to even".
+Two systems that round in different ways or at different steps disagree by a cent.
+An audit then flags the difference.
+Where a law or a tax rule sets the method, the system follows that rule and cites it.
+
+[[DAT-055]]
+*DAT-055.* A system MUST NOT compute amounts of money with binary floating-point numbers.
+Programming languages offer decimal types for this purpose.
+Binary floating point turns `0.10 + 0.20` into a value that is not `0.30`.
+
+== JSON form and LinkML type
+
+[cols="2,3,3",options="header"]
+|===
+|Type |JSON form |LinkML
+|Amount of money |Object with `amount` and `currency` |Class `Money`
+|Amount |String, such as `"12.50"` |Type `DecimalString`
+|Currency |String, such as `"CAD"` |Type `CurrencyCode`, based on `string`, with a pattern
+|===
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-04 |First version.
+|===

@@ -1,0 +1,89 @@
+= Dates et heures
+include::_fpsot-terms.adoc[]
+
+Ces règles emploient les formats de date et d’heure du link:https://www.rfc-editor.org/rfc/rfc3339[{abbr-rfc-first} 3339].
+Ce document est un profil de la norme {abbr-iso-first} 8601-1:2019.
+Il garde une seule façon d’écrire chaque valeur, et les programmes peuvent analyser et trier les valeurs comme du texte.
+
+== Instants
+
+Un instant est un moment unique sur la ligne du temps mondiale.
+Par exemple : le moment où un dossier a changé.
+
+[[DAT-010]]
+*DAT-010.* Un instant DOIT être une date et une heure du {abbr-rfc} 3339 en {abbr-utc-first}, avec `T` et `Z` majuscules.
+Par exemple : `2026-11-04T15:30:00Z`.
+Avec une seule forme, les instants de systèmes différents se comparent et se trient correctement comme du texte.
+Un décalage comme `-05:00` n’ajoute rien à un moment.
+Il évoque aussi un fuseau horaire qu’il ne nomme pas.
+
+[[DAT-011]]
+*DAT-011.* Un lecteur DOIT accepter les instants sans fraction de seconde ou avec une fraction de un à neuf chiffres.
+Les systèmes tiennent l’heure à des précisions différentes, de la seconde entière à la nanoseconde.
+Le schéma d’un champ indique la précision qu’écrit son producteur.
+
+[[DAT-012]]
+*DAT-012.* Un lecteur DOIT accepter un instant qui compte `60` secondes.
+Le format du {abbr-rfc} 3339 permet cette valeur pour une seconde intercalaire.
+La plupart des horloges étalent la seconde intercalaire sur une période plus longue et n’affichent jamais `60`.
+Une seconde intercalaire, même rare, ne doit pas faire rejeter un dossier.
+En 2022, la Conférence générale des poids et mesures a choisi d’élargir l’écart permis avec la rotation de la Terre.
+Le changement arrive d’ici 2035, et les secondes intercalaires cessent alors.
+
+[[DAT-013]]
+*DAT-013.* Les données échangées NE DOIVENT PAS exprimer une date ou un instant en nombre, comme des secondes depuis 1970.
+Un lecteur ne peut pas connaître l’unité d’un tel nombre, ni le vérifier à l’œil.
+Les grandes valeurs dépassent aussi les entiers que tout analyseur {abbr-json-first} lit exactement.
+
+== Dates
+
+[[DAT-014]]
+*DAT-014.* Une date sans heure DOIT être une date complète comme `2026-11-04`, jamais un instant à minuit.
+Une date de naissance ou une date d’échéance désigne un jour du calendrier, pas un moment.
+Minuit en {abbr-utc} tombe la veille au Canada, et un instant converti montrerait le mauvais jour.
+
+== Dates et heures locales
+
+[[DAT-015]]
+*DAT-015.* Quand l’heure de l’horloge locale compte, un système DOIT conserver la date et l’heure locales et un fuseau horaire.
+Par exemple : un rendez-vous futur, ou une échéance qu’une loi fixe en heure locale.
+Les gouvernements changent les règles de leurs fuseaux horaires, parfois avec peu de préavis.
+Un instant calculé aujourd’hui indiquerait alors la mauvaise heure sur l’horloge locale.
+La date et l’heure locales n’ont pas de décalage, puisque le fuseau horaire le donne.
+Le fuseau horaire est un champ distinct, comme le fixent les xref:time-zones.adoc[règles sur les fuseaux horaires].
+
+[source,json]
+----
+{"localDateTime": "2027-03-14T09:00:00", "timeZone": "America/Toronto"}
+----
+
+== Heures du jour
+
+[[DAT-016]]
+*DAT-016.* Une heure du jour sans date DOIT employer la forme sur 24 heures `HH:MM:SS` du {abbr-rfc} 3339, comme `08:30:00`.
+Une fraction de seconde peut suivre, comme dans les instants.
+Les heures d’ouverture et les horaires récurrents demandent une heure qui n’appartient à aucune date précise.
+La forme sur 24 heures n’a ni « a.m. » ni « p.m. » à traduire ou à mal lire.
+
+== Forme JSON et type LinkML
+
+[cols="2,3,3",options="header"]
+|===
+|Type |Forme JSON |LinkML
+|Instant |Chaîne, comme `"2026-11-04T15:30:00Z"` |Type `Instant`, fondé sur `datetime`, avec un motif qui exige `Z`
+|Date |Chaîne, comme `"2026-11-04"` |Type `CalendarDate`, fondé sur `date`
+|Date et heure locales |Objet avec `localDateTime` et `timeZone` |Classe `ZonedLocalDateTime`, avec le type `LocalDateTime`
+|Heure du jour |Chaîne, comme `"08:30:00"` |Type `TimeOfDay`, fondé sur `string`
+|===
+
+Le type `datetime` de LinkML accepte tout décalage, et le type `Instant` ajoute donc un motif qui exige `Z`.
+Dans un schéma {abbr-json}, le type `time` de LinkML exige un décalage.
+Le type `TimeOfDay` emploie donc une chaîne avec un motif.
+
+== Historique du document
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Changement
+|0.1.0 |2026-11-04 |Première version.
+|===
