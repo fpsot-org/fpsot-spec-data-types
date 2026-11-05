@@ -8,5 +8,5 @@ This repository holds the FPSOT data types specification: how FPSOT systems stor
 - Every page exists in English and in French, with the same file name and the same IDs.
 - Terms and abbreviations come from the term base of `fpsot-spec-writing`. Add a missing term there first.
 - This is a layer 1 specification. It may refer to the naming and internationalization specifications, never to a higher layer.
-- Do not copy text from outside standards. Summarise them in your own words and cite the exact version.
+- Do not copy text from outside standards. Summarize them in your own words and cite the exact version.
 - Commits follow Conventional Commits and are signed. Pull requests are squash-merged.

@@ -8,13 +8,13 @@ Les levés d’arpentage et les travaux d’ingénierie demandent souvent un sys
 [[DAT-080]]
 *DAT-080.* Une coordonnée DOIT employer le système {abbr-wgs-84-first} en degrés décimaux, avec la longitude d’abord et la latitude ensuite.
 Par exemple : `[-71.208, 46.814]` pour un point dans la ville de Québec.
-Le format GeoJSON du link:https://www.rfc-editor.org/rfc/rfc7946[{abbr-rfc-first} 7946] fixe ce système et cet ordre.
+Le format GeoJSON du link:https://www.rfc-editor.org/info/rfc7946[RFC 7946] fixe ce système et cet ordre.
 Les lecteurs supposent souvent que la latitude vient d’abord, et l’ordre demande donc une règle ferme.
 
 [[DAT-081]]
 *DAT-081.* Un point ou une forme géométrique dans des données {abbr-json-first} DOIT être un objet géométrique GeoJSON, sans membre `crs`.
 GeoJSON est le format {abbr-json} que lisent la plupart des outils de cartographie.
-La version GeoJSON du {abbr-rfc} 7946 a retiré le membre `crs`, puisque toute coordonnée y emploie le {abbr-wgs-84}.
+La version GeoJSON du link:https://www.rfc-editor.org/info/rfc7946[RFC 7946] a retiré le membre `crs`, puisque toute coordonnée y emploie le {abbr-wgs-84}.
 
 [source,json]
 ----
@@ -37,10 +37,17 @@ Moins de chiffres protègent aussi la vie privée quand un point situe une perso
 |Autres formes |Objet géométrique GeoJSON |Une classe de même structure, ou un renvoi au schéma GeoJSON
 |===
 
+== Références
+
+=== Références normatives
+
+* link:https://www.rfc-editor.org/info/rfc7946[RFC 7946, The GeoJSON Format], {abbr-ietf-first}, 2016-08. link:https://web.archive.org/web/20260515125207/https://www.rfc-editor.org/rfc/rfc7946[Copie archivée]
+
 == Historique du document
 
 [cols="1,1,4",options="header"]
 |===
 |Version |Date |Changement
 |0.1.0 |2026-11-04 |Première version.
+|0.1.1 |2026-11-04 |Liens vers les normes externes, références ajoutées et orthographe américaine pour l’anglais.
 |===

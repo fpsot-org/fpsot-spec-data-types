@@ -1,8 +1,8 @@
 = Dates and times
 include::_fpsot-terms.adoc[]
 
-These rules use the date and time formats of link:https://www.rfc-editor.org/rfc/rfc3339[{abbr-rfc-first} 3339].
-That {abbr-rfc} is a profile of {abbr-iso-first} 8601-1:2019.
+These rules use the date and time formats of link:https://www.rfc-editor.org/info/rfc3339[RFC 3339].
+That document is a profile of link:https://www.iso.org/standard/70907.html[ISO 8601-1:2019], from the {abbr-iso-first}.
 It keeps one way to write each value, so programs can parse and sort the values as text.
 
 == Instants
@@ -10,7 +10,7 @@ It keeps one way to write each value, so programs can parse and sort the values 
 An instant is one moment on the global time line, such as the moment a record changed.
 
 [[DAT-010]]
-*DAT-010.* An instant MUST be an {abbr-rfc} 3339 date and time in {abbr-utc-first}, with a capital `T` and `Z`.
+*DAT-010.* An instant MUST be an link:https://www.rfc-editor.org/info/rfc3339[RFC 3339] date and time in {abbr-utc-first}, with a capital `T` and `Z`.
 An example is `2026-11-04T15:30:00Z`.
 One form makes instants from different systems compare and sort correctly as plain text.
 An offset such as `-05:00` adds nothing to a moment.
@@ -23,7 +23,7 @@ The schema of a field states the precision that its producer writes.
 
 [[DAT-012]]
 *DAT-012.* A reader MUST accept an instant with `60` seconds.
-The {abbr-rfc} 3339 format allows that value for a leap second.
+The link:https://www.rfc-editor.org/info/rfc3339[RFC 3339] format allows that value for a leap second.
 Most clocks spread a leap second over a longer period and never show `60`.
 A rare leap second must still not make a reader reject a record.
 
@@ -63,7 +63,7 @@ The time zone is a separate field, as the xref:time-zones.adoc[time zone rules] 
 == Times of day
 
 [[DAT-016]]
-*DAT-016.* A time of day without a date MUST use the 24-hour form `HH:MM:SS` of {abbr-rfc} 3339, such as `08:30:00`.
+*DAT-016.* A time of day without a date MUST use the 24-hour form `HH:MM:SS` of link:https://www.rfc-editor.org/info/rfc3339[RFC 3339], such as `08:30:00`.
 Fractional seconds can follow, as in instants.
 Opening hours and recurring schedules need a time of day that belongs to no single date.
 The 24-hour form has no "a.m." or "p.m." to translate or misread.
@@ -82,10 +82,22 @@ The 24-hour form has no "a.m." or "p.m." to translate or misread.
 LinkML's own `datetime` type accepts any offset, so the `Instant` type adds a pattern that requires `Z`.
 In a {abbr-json} Schema, LinkML's `time` type requires an offset, so `TimeOfDay` uses a string with a pattern.
 
+== References
+
+=== Normative
+
+* link:https://www.rfc-editor.org/info/rfc3339[RFC 3339, Date and Time on the Internet: Timestamps], {abbr-ietf-first}, 2002-07. link:https://web.archive.org/web/20261022094524/https://www.rfc-editor.org/info/rfc3339/[Archived copy]
+* link:https://www.iso.org/standard/70907.html[ISO 8601-1:2019, Date and time — Representations for information interchange — Part 1: Basic rules], {abbr-iso}, 2019-02. link:https://web.archive.org/web/20261022094544/https://www.iso.org/standard/70907.html[Archived copy]
+
+=== Informative
+
+* link:https://www.bipm.org/en/cgpm-2022/resolution-4[Resolution 4 (2022), On the use and future development of UTC], BIPM, 27th CGPM, 2022-11. link:https://web.archive.org/web/20261025063957/https://www.bipm.org/en/cgpm-2022/resolution-4[Archived copy]
+
 == Document history
 
 [cols="1,1,4",options="header"]
 |===
 |Version |Date |Change
 |0.1.0 |2026-11-04 |First version.
+|0.1.1 |2026-11-04 |Linked outside standards and added references.
 |===

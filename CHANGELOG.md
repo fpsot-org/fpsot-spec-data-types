@@ -6,6 +6,15 @@ and versions follow [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-04
+
+### Changed
+
+- Each RFC, ISO standard, Unicode annex and the time zone database now links to its source where the text names it.
+- Each page that cites outside sources has a References section, with an archived copy where one exists.
+- English text uses US spelling: "centimeters", "meters", "modeled", "License", "Summarize".
+- The repository turns on the `references` and `us-spelling` checks in `.fpsot-checks`.
+
 ## [0.1.0] - 2026-11-04
 
 ### Added
@@ -23,5 +32,6 @@ and versions follow [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.h
 - Comparison data for eight topics, with Canada and Québec rows.
 - How-to guide on modelling a record with these types.
 
-[Unreleased]: https://github.com/fpsot-org/fpsot-spec-data-types/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/fpsot-org/fpsot-spec-data-types/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/fpsot-org/fpsot-spec-data-types/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/fpsot-org/fpsot-spec-data-types/releases/tag/v0.1.0
