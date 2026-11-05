@@ -93,7 +93,7 @@ Le type `TimeOfDay` emploie donc une chaîne avec un motif.
 
 === Références informatives
 
-* link:https://www.bipm.org/fr/cgpm-2022/resolution-4[Résolution 4 (2022), Sur l’utilisation et l’évolution future de l’UTC], BIPM, 27e CGPM, 2022-11.
+* link:https://www.bipm.org/fr/cgpm-2022/resolution-4[Résolution 4 (2022), Sur l’utilisation et l’évolution future de l’UTC], BIPM, 27e CGPM, 2022-11. link:https://web.archive.org/web/20260831065010/https://www.bipm.org/fr/cgpm-2022/resolution-4[Copie archivée]
 
 == Historique du document
 
