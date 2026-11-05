@@ -10,7 +10,7 @@ Ces règles gardent hors de ce format tout nombre qui doit rester exact.
 
 [[DAT-040]]
 *DAT-040.* Un entier au-delà de plus ou moins 2^53^ − 1 DOIT être une chaîne {abbr-json} de chiffres décimaux.
-Le profil du link:https://www.rfc-editor.org/rfc/rfc7493[{abbr-rfc-first} 7493] fixe cet intervalle pour les nombres que tout analyseur lit exactement.
+Le profil du link:https://www.rfc-editor.org/info/rfc7493[RFC 7493] fixe cet intervalle pour les nombres que tout analyseur lit exactement.
 Un analyseur changerait sans avertir un entier plus grand.
 
 [[DAT-041]]
@@ -45,10 +45,17 @@ En LinkML, la propriété `unit` d’une définition d’attribut consigne l’u
 Le type `decimal` de LinkML devient un nombre {abbr-json} dans un schéma {abbr-json}, et il perdrait l’exactitude.
 Le type `DecimalString` garde la valeur sous forme de texte.
 
+== Références
+
+=== Références normatives
+
+* link:https://www.rfc-editor.org/info/rfc7493[RFC 7493, The I-JSON Message Format], {abbr-ietf-first}, 2015-03. link:https://web.archive.org/web/20261022054023/https://www.rfc-editor.org/info/rfc7493/[Copie archivée]
+
 == Historique du document
 
 [cols="1,1,4",options="header"]
 |===
 |Version |Date |Changement
 |0.1.0 |2026-11-04 |Première version.
+|0.1.1 |2026-11-04 |Liens vers les normes externes, références ajoutées et orthographe américaine pour l’anglais.
 |===

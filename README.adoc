@@ -13,7 +13,7 @@ Import the LinkML types in `model/data-types.yaml` into your own model, and give
 == Adopt this spec
 
 Read the guide in `docs/modules/en/pages/index.adoc` or `docs/modules/fr/pages/index.adoc`.
-It shows a record modelled with these types and checked with the LinkML validator.
+It shows a record modeled with these types and checked with the LinkML validator.
 The comparison data in `jurisdictions/` shows how the rules of Canada and Québec differ.
 
 == Layout
@@ -44,7 +44,7 @@ The comparison data in `jurisdictions/` shows how the rules of Canada and Québe
 | Comparison data: how each government handles the same topics.
 |===
 
-== Licence
+== License
 
 The specification is under the Community Specification License 1.0.
 Source code is under the Apache License 2.0.

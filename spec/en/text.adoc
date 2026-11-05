@@ -7,12 +7,12 @@ These rules cover the characters of every string, and text written in more than 
 
 [[DAT-001]]
 *DAT-001.* Text MUST use the {abbr-utf-8-first} encoding, without a byte order mark.
-The {abbr-json-first} standard, link:https://www.rfc-editor.org/rfc/rfc8259[{abbr-rfc-first} 8259], already requires {abbr-utf-8} between systems.
+The {abbr-json-first} standard, link:https://www.rfc-editor.org/info/rfc8259[RFC 8259], already requires {abbr-utf-8} between systems.
 One encoding everywhere means that no reader has to guess.
 A byte order mark adds nothing in {abbr-utf-8} and breaks some parsers.
 
 [[DAT-002]]
-*DAT-002.* A system MUST convert text to Unicode Normalization Form C before it stores it.
+*DAT-002.* A system MUST convert text to link:https://www.unicode.org/reports/tr15/[Unicode Normalization Form C] before it stores it.
 The same letter can have two encodings, such as "é" as one character or as "e" plus an accent.
 Without one stored form, two copies of the same text differ byte by byte.
 The forms come from link:https://www.unicode.org/reports/tr15/[Unicode Standard Annex #15].
@@ -22,7 +22,7 @@ The rule does not apply to signed content or to input of a hash, whose exact byt
 The {abbr-fpsot-first} internationalization specification covers how to compare and search text.
 
 [[DAT-003]]
-*DAT-003.* {abbr-json} data MUST meet the Internet {abbr-json} profile of link:https://www.rfc-editor.org/rfc/rfc7493[{abbr-rfc} 7493].
+*DAT-003.* {abbr-json} data MUST meet the Internet {abbr-json} profile of link:https://www.rfc-editor.org/info/rfc7493[RFC 7493].
 Among other limits, it forbids two members with the same name in one object, and unpaired surrogates.
 Parsers handle those cases in different ways, so two systems could read the same data differently.
 
@@ -54,12 +54,20 @@ An empty string looks like a translation, so a reader would show a blank instead
 [cols="2,3,3",options="header"]
 |===
 |Type |JSON form |LinkML
-|Text |String in UTF-8, Normalization Form C |`string`
+|Text |String in UTF-8, link:https://www.unicode.org/reports/tr15/[Normalization Form C] |`string`
 |Multilingual text |Object keyed by language tag |Class `MultilingualText`, with the attributes `en` and `fr`
 |===
 
 The class requires `en` and `fr`, and its `extra_slots` setting accepts members for other languages.
 LinkML checks that each extra member holds a non-empty string, but it does not check the language tag.
+
+== References
+
+=== Normative
+
+* link:https://www.rfc-editor.org/info/rfc8259[RFC 8259, The JavaScript Object Notation (JSON) Data Interchange Format], {abbr-ietf-first}, STD 90, 2017-12. link:https://web.archive.org/web/20261026222354/https://www.rfc-editor.org/info/rfc8259/[Archived copy]
+* link:https://www.rfc-editor.org/info/rfc7493[RFC 7493, The I-JSON Message Format], {abbr-ietf}, 2015-03. link:https://web.archive.org/web/20261022054023/https://www.rfc-editor.org/info/rfc7493/[Archived copy]
+* link:https://www.unicode.org/reports/tr15/[Unicode Standard Annex #15, Unicode Normalization Forms], Unicode Consortium, revision 58, Unicode 18.0.0, 2026-08-12. link:https://web.archive.org/web/20261101003952/https://www.unicode.org/reports/tr15/[Archived copy]
 
 == Document history
 
@@ -67,4 +75,5 @@ LinkML checks that each extra member holds a non-empty string, but it does not c
 |===
 |Version |Date |Change
 |0.1.0 |2026-11-04 |First version.
+|0.1.1 |2026-11-04 |Linked outside standards and added references.
 |===

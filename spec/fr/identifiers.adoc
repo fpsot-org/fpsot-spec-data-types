@@ -26,7 +26,7 @@ Les faits changent aussi, mais un identifiant ne doit pas changer.
 == Nouveaux identifiants
 
 [[DAT-063]]
-*DAT-063.* Un système qui crée un identifiant DEVRAIT employer un {abbr-uuid} de version 7, défini par le link:https://www.rfc-editor.org/rfc/rfc9562[{abbr-rfc-first} 9562].
+*DAT-063.* Un système qui crée un identifiant DEVRAIT employer un {abbr-uuid} de version 7, défini par le link:https://www.rfc-editor.org/info/rfc9562[RFC 9562].
 Tout système peut en créer un sans consulter un service central.
 Ses premiers bits contiennent l’heure de création.
 Les nouvelles valeurs se trient donc dans l’ordre et gardent les index compacts.
@@ -45,7 +45,7 @@ Avec une seule forme, les identifiants se comparent comme du texte.
 
 [[DAT-067]]
 *DAT-067.* Un lecteur DEVRAIT accepter un {abbr-uuid} en majuscules ou en casse mixte, et le convertir en minuscules.
-Certains systèmes envoient des majuscules, car le {abbr-rfc} 9562 permet toute casse en entrée.
+Certains systèmes envoient des majuscules, car le link:https://www.rfc-editor.org/info/rfc9562[RFC 9562] permet toute casse en entrée.
 Après la conversion, l’identifiant se compare comme du texte, comme le veut DAT-065.
 
 == Identifiants d’autres organismes
@@ -72,10 +72,17 @@ Une classe LinkML marque son attribut d’identifiant avec `identifier: true`, e
 Les motifs `Uuid` et `Uuid7` n’acceptent que les minuscules, car le modèle vérifie les données telles qu’un système les écrit.
 Un lecteur convertit les autres casses en minuscules, comme le dit DAT-067, avant la validation.
 
+== Références
+
+=== Références normatives
+
+* link:https://www.rfc-editor.org/info/rfc9562[RFC 9562, Universally Unique IDentifiers (UUIDs)], {abbr-ietf-first}, 2024-05. link:https://web.archive.org/web/20261021062933/https://www.rfc-editor.org/info/rfc9562/[Copie archivée]
+
 == Historique du document
 
 [cols="1,1,4",options="header"]
 |===
 |Version |Date |Changement
 |0.1.0 |2026-11-04 |Première version.
+|0.1.1 |2026-11-04 |Liens vers les normes externes et références ajoutées.
 |===

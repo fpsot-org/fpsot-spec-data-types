@@ -25,7 +25,7 @@ Facts also change, but an identifier must not.
 == New identifiers
 
 [[DAT-063]]
-*DAT-063.* A system that creates a new identifier SHOULD use a version 7 {abbr-uuid}, as link:https://www.rfc-editor.org/rfc/rfc9562[{abbr-rfc-first} 9562] defines it.
+*DAT-063.* A system that creates a new identifier SHOULD use a version 7 {abbr-uuid}, as link:https://www.rfc-editor.org/info/rfc9562[RFC 9562] defines it.
 Any system can create one without asking a central service.
 Its first bits hold the creation time, so new values sort in order and keep database indexes compact.
 
@@ -42,7 +42,7 @@ One form makes identifiers compare as plain text.
 
 [[DAT-067]]
 *DAT-067.* A reader SHOULD accept a {abbr-uuid} in upper case or mixed case, and convert it to lower case.
-Some systems send upper case, since {abbr-rfc} 9562 allows any case on input.
+Some systems send upper case, since link:https://www.rfc-editor.org/info/rfc9562[RFC 9562] allows any case on input.
 After the conversion, the identifier compares as plain text, as DAT-065 intends.
 
 == Identifiers from other bodies
@@ -68,10 +68,17 @@ A LinkML class marks its identifier slot with `identifier: true`, and gives it o
 The `Uuid` and `Uuid7` patterns accept only lower case, since the model checks data as a system writes it.
 A reader converts other cases to lower case, as DAT-067 says, before it validates.
 
+== References
+
+=== Normative
+
+* link:https://www.rfc-editor.org/info/rfc9562[RFC 9562, Universally Unique IDentifiers (UUIDs)], {abbr-ietf-first}, 2024-05. link:https://web.archive.org/web/20261021062933/https://www.rfc-editor.org/info/rfc9562/[Archived copy]
+
 == Document history
 
 [cols="1,1,4",options="header"]
 |===
 |Version |Date |Change
 |0.1.0 |2026-11-04 |First version.
+|0.1.1 |2026-11-04 |Linked outside standards and added references.
 |===

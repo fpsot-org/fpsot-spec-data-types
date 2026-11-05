@@ -1,8 +1,8 @@
 = Dates et heures
 include::_fpsot-terms.adoc[]
 
-Ces règles emploient les formats de date et d’heure du link:https://www.rfc-editor.org/rfc/rfc3339[{abbr-rfc-first} 3339].
-Ce document est un profil de la norme {abbr-iso-first} 8601-1:2019.
+Ces règles emploient les formats de date et d’heure du link:https://www.rfc-editor.org/info/rfc3339[RFC 3339].
+Ce document est un profil de la norme link:https://www.iso.org/standard/70907.html[ISO 8601-1:2019], de l’{abbr-iso-first}.
 Il garde une seule façon d’écrire chaque valeur, et les programmes peuvent analyser et trier les valeurs comme du texte.
 
 == Instants
@@ -11,7 +11,7 @@ Un instant est un moment unique sur la ligne du temps mondiale.
 Par exemple : le moment où un dossier a changé.
 
 [[DAT-010]]
-*DAT-010.* Un instant DOIT être une date et une heure du {abbr-rfc} 3339 en {abbr-utc-first}, avec `T` et `Z` majuscules.
+*DAT-010.* Un instant DOIT être une date et une heure du link:https://www.rfc-editor.org/info/rfc3339[RFC 3339] en {abbr-utc-first}, avec `T` et `Z` majuscules.
 Par exemple : `2026-11-04T15:30:00Z`.
 Avec une seule forme, les instants de systèmes différents se comparent et se trient correctement comme du texte.
 Un décalage comme `-05:00` n’ajoute rien à un moment.
@@ -24,7 +24,7 @@ Le schéma d’un champ indique la précision qu’écrit son producteur.
 
 [[DAT-012]]
 *DAT-012.* Un lecteur DOIT accepter un instant qui compte `60` secondes.
-Le format du {abbr-rfc} 3339 permet cette valeur pour une seconde intercalaire.
+Le format du link:https://www.rfc-editor.org/info/rfc3339[RFC 3339] permet cette valeur pour une seconde intercalaire.
 La plupart des horloges étalent la seconde intercalaire sur une période plus longue et n’affichent jamais `60`.
 Une seconde intercalaire, même rare, ne doit pas faire rejeter un dossier.
 
@@ -64,7 +64,7 @@ Le fuseau horaire est un champ distinct, comme le fixent les xref:time-zones.ado
 == Heures du jour
 
 [[DAT-016]]
-*DAT-016.* Une heure du jour sans date DOIT employer la forme sur 24 heures `HH:MM:SS` du {abbr-rfc} 3339, comme `08:30:00`.
+*DAT-016.* Une heure du jour sans date DOIT employer la forme sur 24 heures `HH:MM:SS` du link:https://www.rfc-editor.org/info/rfc3339[RFC 3339], comme `08:30:00`.
 Une fraction de seconde peut suivre, comme dans les instants.
 Les heures d’ouverture et les horaires récurrents demandent une heure qui n’appartient à aucune date précise.
 La forme sur 24 heures n’a ni « a.m. » ni « p.m. » à traduire ou à mal lire.
@@ -84,10 +84,22 @@ Le type `datetime` de LinkML accepte tout décalage, et le type `Instant` ajoute
 Dans un schéma {abbr-json}, le type `time` de LinkML exige un décalage.
 Le type `TimeOfDay` emploie donc une chaîne avec un motif.
 
+== Références
+
+=== Références normatives
+
+* link:https://www.rfc-editor.org/info/rfc3339[RFC 3339, Date and Time on the Internet: Timestamps], {abbr-ietf-first}, 2002-07. link:https://web.archive.org/web/20261022094524/https://www.rfc-editor.org/info/rfc3339/[Copie archivée]
+* link:https://www.iso.org/standard/70907.html[ISO 8601-1:2019, Date et heure — Représentations pour l’échange d’information — Partie 1 : Règles de base], {abbr-iso}, 2019-02. link:https://web.archive.org/web/20261022094544/https://www.iso.org/standard/70907.html[Copie archivée]
+
+=== Références informatives
+
+* link:https://www.bipm.org/fr/cgpm-2022/resolution-4[Résolution 4 (2022), Sur l’utilisation et l’évolution future de l’UTC], BIPM, 27e CGPM, 2022-11. link:https://web.archive.org/web/20260831065010/https://www.bipm.org/fr/cgpm-2022/resolution-4[Copie archivée]
+
 == Historique du document
 
 [cols="1,1,4",options="header"]
 |===
 |Version |Date |Changement
 |0.1.0 |2026-11-04 |Première version.
+|0.1.1 |2026-11-04 |Liens vers les normes externes et références ajoutées.
 |===

@@ -7,18 +7,18 @@ Un intervalle est la période entre deux points dans le temps, par exemple la va
 == Durées
 
 [[DAT-020]]
-*DAT-020.* Un système qui écrit une durée DEVRAIT employer la forme stricte {abbr-iso-first} 8601 de l’annexe A du link:https://www.rfc-editor.org/rfc/rfc3339[{abbr-rfc-first} 3339].
+*DAT-020.* Un système qui écrit une durée DEVRAIT employer la forme stricte link:https://www.iso.org/standard/70907.html[ISO 8601] de l’annexe A du link:https://www.rfc-editor.org/info/rfc3339[RFC 3339].
 Par exemple : `PT30M` pour 30 minutes, et `P1Y2M` pour un an et deux mois.
 Les semaines s’écrivent seules, comme dans `P2W`, et aucune unité n’a de fraction décimale.
 Les unités vont de la plus grande à la plus petite, sans trou : un an et un jour s’écrit `P1Y0M1D`.
 La forme nomme chaque unité, et tous les lecteurs acceptent sa grammaire stricte.
 
 [[DAT-024]]
-*DAT-024.* Un lecteur DOIT accepter une durée dans toute forme {abbr-iso} 8601 qui n’a pas de fraction décimale.
+*DAT-024.* Un lecteur DOIT accepter une durée dans toute forme {abbr-iso-first} 8601 qui n’a pas de fraction décimale.
 Cela comprend les formes où il manque des unités intermédiaires, comme `P1Y1D` et `PT1H1S`.
 Des bibliothèques courantes, comme `java.time` en Java, écrivent ces formes.
 Un lecteur qui n’accepte que la grammaire stricte rejetterait des données correctes.
-Cette règle ne vise pas les fractions, comme `PT0.5S`, que le {abbr-rfc} 3339 exclut.
+Cette règle ne vise pas les fractions, comme `PT0.5S`, que le link:https://www.rfc-editor.org/info/rfc3339[RFC 3339] exclut.
 
 [[DAT-021]]
 *DAT-021.* Une durée qui mesure exactement un temps écoulé DEVRAIT employer seulement des heures, minutes et secondes, comme `PT36H`.
@@ -62,10 +62,18 @@ Une interface peut quand même montrer aux personnes le dernier jour de validit�
 LinkML n’a pas de type de durée intégré, et le type `Duration` est donc une chaîne avec un motif.
 Le motif accepte toutes les formes que DAT-024 oblige un lecteur à accepter, et il rejette les fractions.
 
+== Références
+
+=== Références normatives
+
+* link:https://www.rfc-editor.org/info/rfc3339[RFC 3339, Date and Time on the Internet: Timestamps], {abbr-ietf-first}, 2002-07. link:https://web.archive.org/web/20261022094524/https://www.rfc-editor.org/info/rfc3339/[Copie archivée]
+* link:https://www.iso.org/standard/70907.html[ISO 8601-1:2019, Date et heure — Représentations pour l’échange d’information — Partie 1 : Règles de base], {abbr-iso}, 2019-02. link:https://web.archive.org/web/20261022094544/https://www.iso.org/standard/70907.html[Copie archivée]
+
 == Historique du document
 
 [cols="1,1,4",options="header"]
 |===
 |Version |Date |Changement
 |0.1.0 |2026-11-04 |Première version.
+|0.1.1 |2026-11-04 |Liens vers les normes externes et références ajoutées.
 |===
