@@ -6,6 +6,14 @@ and versions follow [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-11-07
+
+### Fixed
+
+- Links to the time zone data now name the Time Zone Database, instead of words such as "database" or "base".
+- DAT-030 is split into two sentences so that each stays short. Its meaning is the same.
+- The archived copy of RFC 7946 is now a snapshot of the `/info/rfc7946` page that the text links, instead of the `/rfc/rfc7946` page.
+
 ## [0.1.1] - 2026-11-04
 
 ### Changed

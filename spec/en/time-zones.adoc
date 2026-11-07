@@ -2,12 +2,13 @@
 include::_fpsot-terms.adoc[]
 
 A time zone is a region that shares the same clock rules, including any change for daylight saving time.
-These rules use the link:https://www.iana.org/time-zones[time zone database] that the {abbr-iana-first} publishes.
+These rules use the link:https://www.iana.org/time-zones[Time Zone Database] that the {abbr-iana-first} publishes.
 
 == Time zone names
 
 [[DAT-030]]
-*DAT-030.* A time zone MUST be a name from the {abbr-iana} link:https://www.iana.org/time-zones[database], such as `America/Toronto`, never an offset or abbreviation.
+*DAT-030.* A time zone MUST be a name from the {abbr-iana} link:https://www.iana.org/time-zones[Time Zone Database], such as `America/Toronto`.
+It MUST NOT be an offset or an abbreviation.
 An offset such as `-05:00` changes when the clocks change, so it cannot place a future time.
 Abbreviations are ambiguous. `CST` names zones in North America, in China and in Cuba.
 A name from the database carries the full history of the rules of its region.
@@ -23,7 +24,7 @@ Older data and other systems still write link names.
 
 == Database releases
 
-The link:https://www.iana.org/time-zones[database] has several releases each year, named after the year and a letter, such as `2026f`.
+The link:https://www.iana.org/time-zones[Time Zone Database] has several releases each year, named after the year and a letter, such as `2026f`.
 Each release follows the rule changes that governments announce.
 
 [[DAT-033]]
@@ -60,4 +61,5 @@ A system checks that the name exists in its release of the database.
 |Version |Date |Change
 |0.1.0 |2026-11-04 |First version.
 |0.1.1 |2026-11-04 |Linked outside standards and added references.
+|0.1.2 |2026-11-07 |Links to the IANA time zone data now name the Time Zone Database. DAT-030 is split into two sentences, with the same meaning.
 |===
