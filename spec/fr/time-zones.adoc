@@ -2,13 +2,13 @@
 include::_fpsot-terms.adoc[]
 
 Un fuseau horaire est une région qui partage les mêmes règles d’horloge, y compris le passage à l’heure avancée.
-Ces règles emploient la link:https://www.iana.org/time-zones[base de données des fuseaux horaires] que publie l’{abbr-iana-first}.
+Ces règles emploient la base de données des fuseaux horaires, la link:https://www.iana.org/time-zones[Time Zone Database], que publie l’{abbr-iana-first}.
 
 == Noms de fuseaux horaires
 
 [[DAT-030]]
-*DAT-030.* Un fuseau horaire DOIT être un nom de la link:https://www.iana.org/time-zones[base] de l’{abbr-iana}, jamais un décalage ni une abréviation.
-Par exemple : `America/Toronto`.
+*DAT-030.* Un fuseau horaire DOIT être un nom de la link:https://www.iana.org/time-zones[Time Zone Database] de l’{abbr-iana}, comme `America/Toronto`.
+Il NE DOIT PAS être un décalage ni une abréviation.
 Un décalage comme `-05:00` change quand on change l’heure, et il ne peut pas situer une heure future.
 Les abréviations sont ambiguës. `CST` désigne des fuseaux en Amérique du Nord, en Chine et à Cuba.
 Un nom de la base de données porte tout l’historique des règles de sa région.
@@ -24,7 +24,7 @@ Des données plus anciennes et d’autres systèmes écrivent encore des noms de
 
 == Versions de la base de données
 
-La link:https://www.iana.org/time-zones[base de données] paraît en plusieurs versions par année, nommées par l’année et une lettre, comme `2026f`.
+La link:https://www.iana.org/time-zones[Time Zone Database] paraît en plusieurs versions par année, nommées par l’année et une lettre, comme `2026f`.
 Chaque version suit les changements de règles qu’annoncent les gouvernements.
 
 [[DAT-033]]
@@ -61,4 +61,5 @@ Le système vérifie que le nom existe dans sa version de la base de données.
 |Version |Date |Changement
 |0.1.0 |2026-11-04 |Première version.
 |0.1.1 |2026-11-04 |Liens vers les normes externes et références ajoutées.
+|0.1.2 |2026-11-07 |Les liens vers les données de fuseaux horaires de l’IANA nomment maintenant la Time Zone Database. L’exigence DAT-030 est séparée en deux phrases, sans changement de sens.
 |===
